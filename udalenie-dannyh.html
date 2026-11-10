@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Удаление данных и отписка | TMK Techno Horizon</title>
+<meta name="description" content="Запрос на удаление персональных данных или отписку от рассылки.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://tmk-vidimost.vercel.app/udalenie-dannyh">
+<meta name="theme-color" content="#040916">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/assets/icon-512.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<link rel="stylesheet" href="/assets/styles.css">
+<script src="/assets/analytics.js" defer></script>
+<script src="/assets/deletion.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+<header class="site-header is-solid">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="TMK Techno Horizon - на главную"><img src="/assets/logo-dark.png" alt="TMK Techno Horizon" width="139" height="24"></a>
+    <div class="header-actions"><a class="btn header-cta" href="/#zayavka">Оставить заявку</a></div>
+  </div>
+</header>
+<main id="main" class="wrap">
+  <article class="legal">
+    <h1 class="h2" style="max-width:none">Удаление данных и отписка</h1>
+    <p class="small">Редакция от 9 ноября 2026 года</p>
+
+    <p>Здесь можно попросить удалить ваши персональные данные или отписаться от рассылки. Мы выполним запрос в течение 10 рабочих дней и сообщим об этом по указанному телефону.</p>
+
+    <div class="form-card form-card-light">
+      <div class="deletion-done" hidden>
+        <h2 class="h3">Запрос получен</h2>
+        <p>Мы выполним его в течение 10 рабочих дней и сообщим вам. Если появятся вопросы - напишите на <a href="mailto:tmk.techno.horizon@gmail.com">tmk.techno.horizon@gmail.com</a>.</p>
+      </div>
+      <form id="deletion-form" action="/api/lead" method="post" novalidate>
+        <input type="hidden" name="request_type" value="deletion">
+        <div class="form-grid">
+          <div class="field" data-field="name">
+            <label for="d-name">Ваше имя</label>
+            <input id="d-name" name="name" type="text" autocomplete="name" maxlength="80" required>
+            <p class="error-text" id="e-name">Напишите имя, как в заявке</p>
+          </div>
+          <div class="field" data-field="phone">
+            <label for="d-phone">Телефон из заявки</label>
+            <input id="d-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="18" required placeholder="+7 (___) ___-__-__">
+            <p class="error-text" id="e-phone">Введите номер полностью: +7 и 10 цифр</p>
+          </div>
+          <div class="field full">
+            <span class="label" id="what-label">Что сделать</span>
+            <div class="radio-row" role="radiogroup" aria-labelledby="what-label">
+              <label><input type="radio" name="what" value="Удалить все мои данные" checked>Удалить все мои данные</label>
+              <label><input type="radio" name="what" value="Только отписать от рассылки">Только отписать от рассылки</label>
+            </div>
+          </div>
+          <div class="field full">
+            <label for="d-message">Комментарий <span class="opt">- по желанию</span></label>
+            <input id="d-message" name="message" type="text" maxlength="500">
+          </div>
+        </div>
+        <div class="hp-field" aria-hidden="true"><label for="d-company">Не заполняйте это поле</label><input id="d-company" name="company" type="text" tabindex="-1" autocomplete="off"></div>
+        <div class="form-submit"><button class="btn btn-dark" type="submit">Отправить запрос</button></div>
+        <p class="form-status" role="alert" aria-live="assertive"></p>
+      </form>
+    </div>
+    <p style="margin-top:24px">Можно и без формы: напишите на <a href="mailto:tmk.techno.horizon@gmail.com">tmk.techno.horizon@gmail.com</a> с темой «Персональные данные» или ответьте «Стоп» на наше сообщение, чтобы отписаться.</p>
+
+  </article>
+</main>
+<!--FOOTER:start-->
+<footer class="footer">
+  <div class="wrap">
+    <div>
+      <a class="logo" href="/" aria-label="TMK Techno Horizon - на главную"><img src="/assets/logo.png" alt="TMK Techno Horizon" width="127" height="22" loading="lazy"></a>
+      <p>Делаем так, чтобы бизнес находили в поиске и на картах, а ИИ рекомендовал ваш товар или услугу.</p>
+      <p class="footer-req">Частная компания «TMK TECHNOHORIZON LTD.» (TMK Techno Horizon), БИН 240140900168, юридический адрес: 010000, г. Астана, район Есиль, пр. Улы Дала, д. 41/3, кв. 3</p>
+      <p class="footer-req">Офис и работа с клиентами: г. Алматы, по всему Казахстану</p>
+    </div>
+    <div>
+      <p><a href="tel:+77479071622" data-loc="footer">+7 747 907 16 22</a></p>
+      <p><a href="https://wa.me/77479071622" target="_blank" rel="noopener" data-loc="footer">WhatsApp</a></p>
+      <p><a href="mailto:tmk.techno.horizon@gmail.com" data-loc="footer">tmk.techno.horizon@gmail.com</a></p>
+      <p><a href="https://tmk-technohorizon.kz/" target="_blank" rel="noopener">tmk-technohorizon.kz</a>, <a href="https://www.instagram.com/tmk.tech/" target="_blank" rel="noopener">Instagram</a></p>
+    </div>
+    <nav aria-label="Документы">
+      <p><a href="/privacy">Политика конфиденциальности</a></p>
+      <p><a href="/terms">Условия использования</a></p>
+      <p><a href="/vozvrat">Политика возврата средств</a></p>
+      <p><a href="/cookies">Использование cookie</a></p>
+      <p><a href="/udalenie-dannyh">Удалить мои данные или отписаться</a></p>
+      <p><a href="/licenses">Лицензии и источники</a></p>
+      <p><button type="button" class="link-btn" data-cookie-settings>Настройки cookie</button></p>
+    </nav>
+    <div class="footer-bottom">
+      <span>© 2026 TMK Techno Horizon. Сайт для лиц старше 18 лет.</span>
+      <span>Цены на сайте - ориентир, не публичная оферта</span>
+    </div>
+  </div>
+</footer>
+<!--FOOTER:end-->
+</body>
+</html>

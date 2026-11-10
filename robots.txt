@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /spasibo
+
+Sitemap: https://tmk-vidimost.vercel.app/sitemap.xml

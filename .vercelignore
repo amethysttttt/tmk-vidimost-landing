@@ -1,0 +1,7 @@
+README.md
+apps-script/
+tools/
+.claude/
+.gitignore
+.env*
+.vercel
