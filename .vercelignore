@@ -5,3 +5,4 @@ tools/
 .gitignore
 .env*
 .vercel
+deploy/
