@@ -3,6 +3,8 @@ apps-script/
 tools/
 .claude/
 .gitignore
-.env*
+.env
+.env.local
+.env.*.local
 .vercel
 deploy/

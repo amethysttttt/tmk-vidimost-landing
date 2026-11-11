@@ -1,0 +1,19 @@
+[Unit]
+Description=TMK Techno Horizon landing + CRM
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/tmk-landing
+EnvironmentFile=/var/www/tmk-landing/.env
+Environment=APP_ROOT=/var/www/tmk-landing
+Environment=PORT=8790
+Environment=BIND=127.0.0.1
+ExecStart=/var/www/tmk-landing/.venv/bin/python /var/www/tmk-landing/tools/prodserver.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

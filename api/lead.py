@@ -3,14 +3,14 @@
 
 Путь: POST /api/lead
 1. Проверяет поля (имя, телефон +7XXXXXXXXXX, согласие) и ловушку для ботов.
-2. Передаёт заявку в Google Apps Script: он пишет строку в таблицу «Заявки с лендинга»
-   и отправляет письмо на tmk.techno.horizon@gmail.com.
-3. Отвечает {"ok": true} - после этого страница переводит человека на /spasibo.
-   Если форма отправлена без JavaScript - сразу перенаправляет на /spasibo.
+2. Пишет лид в CRM (Postgres) с источником site_seo и шлёт уведомление
+   на NOTIFY_EMAIL (kaelggbet@gmail.com).
+3. Опционально дублирует заявку в Google Apps Script / таблицу, если задан LEADS_WEBHOOK_URL.
+4. Отвечает {"ok": true} — после этого страница переводит человека на /spasibo.
 
-Настройки (переменные окружения Vercel имеют приоритет над значениями ниже):
-  LEADS_WEBHOOK_URL    - адрес веб-приложения Apps Script (.../exec)
-  LEADS_WEBHOOK_SECRET - общий секрет с Apps Script, чтобы таблицу не заспамили напрямую
+Настройки:
+  DATABASE_URL, SMTP_*, NOTIFY_EMAIL
+  LEADS_WEBHOOK_URL / LEADS_WEBHOOK_SECRET — опциональный дубль в Sheets
 """
 import json
 import os
@@ -21,12 +21,21 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
 from http.server import BaseHTTPRequestHandler
+from pathlib import Path
+
+_ROOT = Path(__file__).resolve().parents[1]
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
+from crm_lib.auth import hash_idempotency
+from crm_lib.contract import contract
+from crm_lib.service import create_lead as crm_create_lead
 
 WEBHOOK_URL = os.environ.get("LEADS_WEBHOOK_URL", "")
 WEBHOOK_SECRET = os.environ.get("LEADS_WEBHOOK_SECRET", "")
 
 MAX_BODY = 20 * 1024
-ALMATY = timezone(timedelta(hours=5))  # единый часовой пояс Казахстана с 01.03.2024
+ALMATY = timezone(timedelta(hours=5))
 FIELDS = {
     "name": 80, "phone": 20, "link": 300, "business_type": 80, "city": 60,
     "contact_method": 20, "package": 80, "utm_source": 200, "utm_medium": 200,
@@ -35,13 +44,13 @@ FIELDS = {
 }
 REQUEST_TYPES = ("lead", "deletion")
 PHONE_RE = re.compile(r"^\+7\d{10}$")
+PAID_PACKAGES = {"Пакет Старт", "Пакет Рост", "Пакет Лидер"}
 
 
 def clean(value, limit):
     if not isinstance(value, str):
         value = "" if value is None else str(value)
     value = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", "", value).strip()
-    # Защита таблицы от формул: значение не должно начинаться с = + - @
     if value[:1] in ("=", "+", "-", "@") and not PHONE_RE.match(value):
         value = "'" + value
     return value[:limit]
@@ -64,8 +73,6 @@ def validate(data):
         errors.append("name")
     if not PHONE_RE.match(lead["phone"]):
         errors.append("phone")
-    # Для заявки нужно согласие на обработку данных и подтверждение 18+;
-    # запрос на удаление данных выполняем по закону и без согласия
     if lead["request_type"] == "lead" and str(data.get("consent", "")).lower() not in ("yes", "on", "true", "1"):
         errors.append("consent")
     lead["created_at"] = datetime.now(ALMATY).strftime("%d.%m.%Y %H:%M")
@@ -74,7 +81,7 @@ def validate(data):
 
 def send_to_sheet(lead):
     if not WEBHOOK_URL:
-        raise RuntimeError("LEADS_WEBHOOK_URL is not set")
+        return
     payload = dict(lead)
     payload["secret"] = WEBHOOK_SECRET
     req = urllib.request.Request(
@@ -83,7 +90,6 @@ def send_to_sheet(lead):
         headers={"Content-Type": "application/json; charset=utf-8"},
         method="POST",
     )
-    # Apps Script отвечает редиректом 302 на страницу с результатом - urllib проходит его сам
     with urllib.request.urlopen(req, timeout=15) as resp:
         body = resp.read(4096).decode("utf-8", "replace")
     try:
@@ -92,6 +98,54 @@ def send_to_sheet(lead):
         raise RuntimeError("unexpected webhook response: " + body[:200])
     if not result.get("ok"):
         raise RuntimeError("webhook error: " + str(result.get("error", ""))[:200])
+
+
+def save_to_crm(lead):
+    labels = contract()["FORM_LABELS"]
+    is_deletion = lead["request_type"] == "deletion"
+    package = (lead.get("package") or "").strip()
+    if is_deletion:
+        form_name = labels["deletion"]
+        service = "Запрос на удаление данных"
+    elif package in PAID_PACKAGES:
+        form_name = labels["seo_audit"]
+        service = package
+    else:
+        form_name = labels["seo_audit"]
+        service = "Бесплатный SEO + GEO разбор"
+
+    payload = {
+        "name": lead["name"],
+        "phone": lead["phone"],
+        "link": lead.get("link") or "",
+        "business_type": lead.get("business_type") or "",
+        "city": lead.get("city") or "",
+        "contact_method": lead.get("contact_method") or "",
+        "package": package,
+        "comment": lead.get("message") or "",
+        "page_url": lead.get("page") or "",
+        "referrer": lead.get("referrer") or "",
+        "utm_source": lead.get("utm_source") or "",
+        "utm_medium": lead.get("utm_medium") or "",
+        "utm_campaign": lead.get("utm_campaign") or "",
+        "utm_content": lead.get("utm_content") or "",
+        "utm_term": lead.get("utm_term") or "",
+        "consent": True,
+        "marketing": lead.get("marketing") == "yes",
+        "source": "site_seo",
+        "form_name": form_name,
+        "service": service,
+        "idempotency_key": hash_idempotency(
+            lead["phone"],
+            lead["name"],
+            "site_seo",
+            form_name,
+            service,
+            lead.get("page") or "",
+            lead.get("created_at") or "",
+        ),
+    }
+    return crm_create_lead(payload, notify=True)
 
 
 class handler(BaseHTTPRequestHandler):
@@ -155,7 +209,6 @@ class handler(BaseHTTPRequestHandler):
         else:
             data = {k: v[0] for k, v in urllib.parse.parse_qs(raw, keep_blank_values=True).items()}
 
-        # Ловушка для ботов: человек это поле не видит и не заполняет
         if str(data.get("company", "")).strip():
             return self._json(200, {"ok": True}) if self._wants_json() else self._redirect("/spasibo")
 
@@ -164,11 +217,15 @@ class handler(BaseHTTPRequestHandler):
             return self._fail(400, "validation")
 
         try:
+            save_to_crm(lead)
+        except Exception as exc:
+            print("LEAD_CRM_FAILED", json.dumps(lead, ensure_ascii=False), repr(exc), file=sys.stderr)
+            return self._fail(502, "delivery")
+
+        try:
             send_to_sheet(lead)
         except (urllib.error.URLError, RuntimeError, OSError, ValueError) as exc:
-            # Заявка не должна потеряться: пишем её в журнал функции Vercel, чтобы восстановить вручную
-            print("LEAD_NOT_DELIVERED", json.dumps(lead, ensure_ascii=False), repr(exc), file=sys.stderr)
-            return self._fail(502, "delivery")
+            print("LEAD_SHEET_FAILED", json.dumps(lead, ensure_ascii=False), repr(exc), file=sys.stderr)
 
         if self._wants_json():
             return self._json(200, {"ok": True})
@@ -177,5 +234,5 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         self._json(405, {"ok": False, "error": "method_not_allowed"})
 
-    def log_message(self, format, *args):  # без лишних строк в журнале
+    def log_message(self, format, *args):
         return
