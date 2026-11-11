@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>CRM · TMK Techno Horizon</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/assets/fonts/fonts.css">
+  <link rel="stylesheet" href="/crm/styles.css">
+</head>
+<body>
+  <div id="app">
+    <section id="login-view" class="login-view" hidden>
+      <div class="login-card">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <strong>TMK Techno Horizon</strong>
+            <span>CRM обработки заявок с двух сайтов</span>
+          </div>
+        </div>
+        <h1>Вход в CRM</h1>
+        <form id="login-form" autocomplete="on">
+          <label>Логин
+            <input name="login" type="text" required autocomplete="username" placeholder="Логин">
+          </label>
+          <label>Пароль
+            <div class="password-row">
+              <input name="password" type="password" required autocomplete="current-password" placeholder="Пароль">
+              <button type="button" class="ghost" id="toggle-pass" aria-label="Показать пароль">👁</button>
+            </div>
+          </label>
+          <p class="form-error" id="login-error" role="alert"></p>
+          <button class="btn primary" type="submit">Войти</button>
+        </form>
+        <p class="hint">Одна учётная запись. Пароль запросите у администратора.</p>
+      </div>
+    </section>
+
+    <section id="crm-view" class="crm-view" hidden>
+      <header class="topbar">
+        <div class="brand compact">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <strong>TMK Techno Horizon</strong>
+            <span>CRM · заявки с сайтов</span>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <button class="ghost" id="btn-password" type="button" title="Смена пароля">Пароль</button>
+          <button class="ghost" id="btn-logout" type="button">Выйти</button>
+        </div>
+      </header>
+
+      <main class="layout">
+        <div class="list-pane">
+          <div class="list-head">
+            <div>
+              <h1>Заявки</h1>
+              <p class="counters" id="counters">—</p>
+            </div>
+            <div class="list-tools">
+              <label class="search">
+                <span class="sr">Поиск</span>
+                <input id="search" type="search" placeholder="Имя, телефон, компания, сайт">
+              </label>
+              <button class="ghost" id="btn-filters" type="button">Фильтры</button>
+              <button class="ghost" id="btn-refresh" type="button" title="Обновить">↻</button>
+              <button class="ghost" id="btn-export" type="button" title="Экспорт CSV">↓</button>
+              <button class="btn primary" id="btn-add" type="button">+ Добавить</button>
+            </div>
+          </div>
+
+          <div id="filters" class="filters" hidden>
+            <label>Статус
+              <select id="f-status">
+                <option value="Все">Все</option>
+                <option>Новая</option>
+                <option>Готовится разбор</option>
+                <option>В работе</option>
+                <option>КП отправлено</option>
+                <option>Переговоры</option>
+                <option>Успешно</option>
+                <option>Отказ</option>
+                <option>Отложено</option>
+              </select>
+            </label>
+            <label>Источник
+              <select id="f-source">
+                <option value="Все">Все</option>
+                <option value="site_seo">SEO + GEO — лендинг</option>
+                <option value="site_corp">Techno Horizon — корпоративный сайт</option>
+                <option value="whatsapp">WhatsApp</option>
+                <option value="call">Звонок</option>
+                <option value="other">Другое</option>
+              </select>
+            </label>
+            <label>Услуга
+              <input id="f-service" type="text" placeholder="Часть названия услуги">
+            </label>
+            <label>С
+              <input id="f-from" type="date">
+            </label>
+            <label>По
+              <input id="f-to" type="date">
+            </label>
+            <label class="check">
+              <input id="f-overdue" type="checkbox"> Только просроченные
+            </label>
+            <button class="ghost" id="btn-reset-filters" type="button">Сбросить</button>
+          </div>
+
+          <div class="table-wrap">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>№</th>
+                  <th>Дата</th>
+                  <th>Имя / компания</th>
+                  <th>Телефон</th>
+                  <th>Услуга</th>
+                  <th>Источник</th>
+                  <th>Статус</th>
+                  <th>След. действие</th>
+                </tr>
+              </thead>
+              <tbody id="leads-body">
+                <tr><td colspan="8" class="empty">Загрузка…</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pager">
+            <button class="ghost" id="prev-page" type="button">←</button>
+            <span id="page-label">1</span>
+            <button class="ghost" id="next-page" type="button">→</button>
+          </div>
+        </div>
+
+        <aside id="card-pane" class="card-pane" hidden>
+          <div class="card-head">
+            <div>
+              <h2 id="card-title">Заявка</h2>
+              <p id="card-sub" class="muted"></p>
+            </div>
+            <button class="ghost" id="btn-close-card" type="button">Закрыть</button>
+          </div>
+          <div id="card-body" class="card-body"></div>
+        </aside>
+      </main>
+    </section>
+  </div>
+
+  <dialog id="add-dialog">
+    <form method="dialog" id="add-form" class="dialog-form">
+      <h3>Добавить заявку</h3>
+      <label>Имя <input name="name" type="text"></label>
+      <label>Компания <input name="company" type="text"></label>
+      <label>Телефон <input name="phone" type="tel" required placeholder="+7…"></label>
+      <label>Источник
+        <select name="source" required>
+          <option value="whatsapp">WhatsApp</option>
+          <option value="call">Звонок</option>
+          <option value="other">Другое</option>
+        </select>
+      </label>
+      <label>Услуга
+        <select name="service">
+          <option value="">— выберите —</option>
+          <option>Бесплатный SEO + GEO разбор</option>
+          <option>Пакет Старт</option>
+          <option>Пакет Рост</option>
+          <option>Пакет Лидер</option>
+          <option>Аудит сайта / системы</option>
+          <option>Разработка сайта</option>
+          <option>Автоматизация процессов</option>
+          <option>Система под бизнес</option>
+          <option>Мобильное приложение</option>
+          <option>AI-решение</option>
+          <option>Не знаю — нужна консультация</option>
+          <option>Другое</option>
+        </select>
+      </label>
+      <label>Сообщение <textarea name="comment" rows="3"></textarea></label>
+      <p class="form-error" id="add-error"></p>
+      <div class="dialog-actions">
+        <button value="cancel" class="ghost" type="submit">Отмена</button>
+        <button id="add-save" class="btn primary" value="default" type="submit">Сохранить</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="password-dialog">
+    <form method="dialog" id="password-form" class="dialog-form">
+      <h3>Смена пароля</h3>
+      <p class="hint">Сгенерируем bcrypt-хеш. Его нужно сохранить в переменной <code>CRM_PASSWORD_HASH</code> на Vercel и убрать <code>CRM_PASSWORD</code>.</p>
+      <label>Текущий пароль <input name="current" type="password" required></label>
+      <label>Новый пароль <input name="new_password" type="password" required minlength="8"></label>
+      <p class="form-error" id="password-error"></p>
+      <pre id="password-hash" class="hash-box" hidden></pre>
+      <div class="dialog-actions">
+        <button value="cancel" class="ghost" type="submit">Закрыть</button>
+        <button class="btn primary" value="default" type="submit">Сгенерировать</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="/shared/crm.js"></script>
+  <script src="/crm/app.js" defer></script>
+</body>
+</html>
