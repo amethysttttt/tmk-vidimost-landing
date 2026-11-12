@@ -5,8 +5,7 @@
   var track = function (ga, ym, params) { if (typeof window.track === 'function') { window.track(ga, ym, params); } };
   var store = {
     get: function (k) { try { return window.sessionStorage.getItem(k); } catch (e) { return null; } },
-    set: function (k, v) { try { window.sessionStorage.setItem(k, v); } catch (e) {} },
-    del: function (k) { try { window.sessionStorage.removeItem(k); } catch (e) {} }
+    set: function (k, v) { try { window.sessionStorage.setItem(k, v); } catch (e) {} }
   };
 
   /* ---------- UTM: запоминаем метки первого захода в рамках сессии ---------- */

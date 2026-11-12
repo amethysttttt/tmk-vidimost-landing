@@ -186,14 +186,13 @@ h1, h2, h3 { margin: 0; }
 .app-card .k span::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); }
 .app-card .v { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); margin-top: 6px; }
 .s1 { --dot: #1A5FF5; } .s2 { --dot: #4C84F8; } .s3 { --dot: #8DB0FB; } .s4 { --dot: #C3D4FB; }
-.app-bar .s1, .app-bar .s2, .app-bar .s3, .app-bar .s4, .share .s1, .share .s2, .share .s3, .share .s4 { background: var(--dot); }
+.app-bar .s1, .app-bar .s2, .app-bar .s3, .app-bar .s4 { background: var(--dot); }
 .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 150px; background: linear-gradient(180deg, rgba(255, 255, 255, 0), var(--white) 88%); pointer-events: none; z-index: 1; }
 .stage-caption { text-align: center; font-size: 13.5px; color: var(--muted); margin: 14px auto 0; }
 
 /* Один момент движения: появление первого экрана */
 @media (prefers-reduced-motion: no-preference) {
   .rise { opacity: 0; transform: translateY(14px); animation: rise .7s cubic-bezier(.2, .7, .2, 1) forwards; }
-  .rise-2 { animation-delay: .08s; } .rise-3 { animation-delay: .16s; } .rise-4 { animation-delay: .24s; }
   .stage.rise { transform: translateY(48px); animation-duration: 1s; animation-delay: .3s; }
   @keyframes rise { to { opacity: 1; transform: none; } }
 }
@@ -243,18 +242,19 @@ h1, h2, h3 { margin: 0; }
 .f-ask { background: var(--ink); color: var(--white); border-radius: 12px 12px 4px 12px; padding: 7px 12px; margin: 0 0 8px auto; width: fit-content; max-width: 92%; }
 .found-note { text-align: center; font-size: 13.5px; color: var(--muted); margin-top: 14px; }
 
-/* Цифры */
-.facts { display: grid; gap: 16px; margin-top: 20px; }
-@media (min-width: 760px) { .facts { grid-template-columns: 1fr 1fr; } }
-.fact { margin: 0; padding: 26px; }
-.fact b { display: block; font-size: clamp(40px, 5vw, 56px); line-height: 1; letter-spacing: -0.04em; font-weight: 600; color: var(--ink); margin-bottom: 12px; }
-.fact span { display: block; color: var(--muted); font-size: 15.5px; }
-.fact cite { display: block; font-style: normal; font-size: 13px; color: var(--muted); margin-top: 8px; }
-.share { display: flex; height: 8px; gap: 4px; margin: 0 0 14px; }
-.share i { border-radius: 4px; }
-.share-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; color: var(--muted); margin: 0 0 10px; list-style: none; padding: 0; }
-.share-legend li { display: flex; align-items: center; gap: 6px; }
-.share-legend li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); }
+/* Почему могут не находить */
+.problems { display: grid; gap: 14px; margin-top: 8px; }
+@media (min-width: 760px) { .problems { grid-template-columns: 1fr 1fr; gap: 16px; } }
+@media (min-width: 1040px) { .problems { grid-template-columns: repeat(4, 1fr); } }
+.problem { padding: 24px; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.problem-mark { width: 28px; height: 28px; border-radius: 8px; background: var(--haze); color: var(--brand-ink); font-weight: 700; font-size: 14px; display: grid; place-items: center; }
+.problem .h3 { font-size: 17px; margin: 0; }
+.problem p { color: var(--muted); font-size: 15px; margin: 0; }
+.problems-cta { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; justify-content: center; text-align: center; }
+.problems-cta p { margin: 0; color: var(--text); font-size: 16px; font-weight: 600; }
+
+.hero-note { margin: 14px 0 0; font-size: 14px; color: rgba(255,255,255,.72); }
+.offer-note { margin: 12px 0 0; font-size: 13.5px; color: rgba(255,255,255,.7); text-align: center; }
 
 /* Выгоды */
 .bento { display: grid; gap: 16px; }
