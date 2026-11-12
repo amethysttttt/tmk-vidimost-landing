@@ -17,12 +17,6 @@ def public_url() -> str:
     return (os.environ.get("CRM_PUBLIC_URL") or "https://ai.tmk-technohorizon.kz").rstrip("/")
 
 
-def is_email_configured() -> bool:
-    return bool((os.environ.get("SMTP_USER") or "").strip() and (os.environ.get("SMTP_PASS") or "").strip()) or bool(
-        (os.environ.get("RESEND_API_KEY") or "").strip()
-    )
-
-
 def log_notification(lead_id: int, channel: str, status: str, detail: str):
     try:
         ensure_schema()

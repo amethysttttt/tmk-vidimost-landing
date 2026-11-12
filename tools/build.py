@@ -8,7 +8,7 @@ import os
 import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE = "https://tmk-vidimost.vercel.app"
+SITE = "https://ai.tmk-technohorizon.kz"
 EDITION = "9 ноября 2026 года"
 
 # Заполнить, когда компания пришлёт реквизиты (пустые поля на сайте не выводятся)

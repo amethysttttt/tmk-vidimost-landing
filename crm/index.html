@@ -7,7 +7,7 @@
   <title>CRM · TMK Techno Horizon</title>
   <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/assets/fonts/fonts.css">
-  <link rel="stylesheet" href="/crm/styles.css">
+  <link rel="stylesheet" href="/crm/styles.css?v=11">
 </head>
 <body>
   <div id="app">
@@ -26,9 +26,14 @@
             <input name="login" type="text" required autocomplete="username" placeholder="Логин">
           </label>
           <label>Пароль
-            <div class="password-row">
+            <div class="password-wrap">
               <input name="password" type="password" required autocomplete="current-password" placeholder="Пароль">
-              <button type="button" class="ghost" id="toggle-pass" aria-label="Показать пароль">👁</button>
+              <button type="button" class="icon-btn" id="toggle-pass" aria-label="Показать пароль" title="Показать пароль">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
             </div>
           </label>
           <p class="form-error" id="login-error" role="alert"></p>
@@ -40,7 +45,7 @@
 
     <section id="crm-view" class="crm-view" hidden>
       <header class="topbar">
-        <div class="brand compact">
+        <div class="brand">
           <div class="brand-mark" aria-hidden="true"></div>
           <div>
             <strong>TMK Techno Horizon</strong>
@@ -151,61 +156,75 @@
     </section>
   </div>
 
-  <dialog id="add-dialog">
-    <form method="dialog" id="add-form" class="dialog-form">
-      <h3>Добавить заявку</h3>
-      <label>Имя <input name="name" type="text"></label>
-      <label>Компания <input name="company" type="text"></label>
-      <label>Телефон <input name="phone" type="tel" required placeholder="+7…"></label>
-      <label>Источник
-        <select name="source" required>
-          <option value="whatsapp">WhatsApp</option>
-          <option value="call">Звонок</option>
-          <option value="other">Другое</option>
-        </select>
-      </label>
-      <label>Услуга
-        <select name="service">
-          <option value="">— выберите —</option>
-          <option>Бесплатный SEO + GEO разбор</option>
-          <option>Пакет Старт</option>
-          <option>Пакет Рост</option>
-          <option>Пакет Лидер</option>
-          <option>Аудит сайта / системы</option>
-          <option>Разработка сайта</option>
-          <option>Автоматизация процессов</option>
-          <option>Система под бизнес</option>
-          <option>Мобильное приложение</option>
-          <option>AI-решение</option>
-          <option>Не знаю — нужна консультация</option>
-          <option>Другое</option>
-        </select>
-      </label>
-      <label>Сообщение <textarea name="comment" rows="3"></textarea></label>
-      <p class="form-error" id="add-error"></p>
-      <div class="dialog-actions">
-        <button value="cancel" class="ghost" type="submit">Отмена</button>
-        <button id="add-save" class="btn primary" value="default" type="submit">Сохранить</button>
+  <dialog id="add-dialog" class="modal">
+    <form id="add-form" class="modal-form">
+      <header class="modal-head">
+        <h3>Добавить заявку</h3>
+        <button type="button" class="icon-btn modal-close" id="add-cancel" aria-label="Закрыть">×</button>
+      </header>
+      <div class="modal-body">
+        <div class="modal-grid">
+          <label>Имя <input name="name" type="text" autocomplete="name"></label>
+          <label>Компания <input name="company" type="text" autocomplete="organization"></label>
+        </div>
+        <label>Телефон <input name="phone" type="tel" inputmode="numeric" autocomplete="tel" required placeholder="+7…" data-phone-only></label>
+        <div class="modal-grid">
+          <label>Источник
+            <select name="source" required>
+              <option value="whatsapp">WhatsApp</option>
+              <option value="call">Звонок</option>
+              <option value="other">Другое</option>
+            </select>
+          </label>
+          <label>Услуга
+            <select name="service">
+              <option value="">— выберите —</option>
+              <option>Бесплатный SEO + GEO разбор</option>
+              <option>Пакет Старт</option>
+              <option>Пакет Рост</option>
+              <option>Пакет Лидер</option>
+              <option>Аудит сайта / системы</option>
+              <option>Разработка сайта</option>
+              <option>Автоматизация процессов</option>
+              <option>Система под бизнес</option>
+              <option>Мобильное приложение</option>
+              <option>AI-решение</option>
+              <option>Не знаю — нужна консультация</option>
+              <option>Другое</option>
+            </select>
+          </label>
+        </div>
+        <label>Сообщение <textarea name="comment" rows="3"></textarea></label>
+        <p class="form-error" id="add-error"></p>
       </div>
+      <footer class="modal-foot">
+        <button type="button" class="ghost" id="add-cancel-foot">Отмена</button>
+        <button type="submit" class="btn primary" id="add-save">Сохранить</button>
+      </footer>
     </form>
   </dialog>
 
-  <dialog id="password-dialog">
-    <form method="dialog" id="password-form" class="dialog-form">
-      <h3>Смена пароля</h3>
-      <p class="hint">Сгенерируем bcrypt-хеш. Его нужно сохранить в переменной <code>CRM_PASSWORD_HASH</code> на Vercel и убрать <code>CRM_PASSWORD</code>.</p>
-      <label>Текущий пароль <input name="current" type="password" required></label>
-      <label>Новый пароль <input name="new_password" type="password" required minlength="8"></label>
-      <p class="form-error" id="password-error"></p>
-      <pre id="password-hash" class="hash-box" hidden></pre>
-      <div class="dialog-actions">
-        <button value="cancel" class="ghost" type="submit">Закрыть</button>
-        <button class="btn primary" value="default" type="submit">Сгенерировать</button>
+  <dialog id="password-dialog" class="modal">
+    <form id="password-form" class="modal-form">
+      <header class="modal-head">
+        <h3>Смена пароля</h3>
+        <button type="button" class="icon-btn modal-close" id="password-cancel" aria-label="Закрыть">×</button>
+      </header>
+      <div class="modal-body">
+        <p class="hint">Сгенерируем bcrypt-хеш. Сохраните его в <code>CRM_PASSWORD_HASH</code> на сервере (в <code>.env</code>) и уберите <code>CRM_PASSWORD</code>, затем перезапустите CRM.</p>
+        <label>Текущий пароль <input name="current" type="password" required autocomplete="current-password"></label>
+        <label>Новый пароль <input name="new_password" type="password" required minlength="8" autocomplete="new-password"></label>
+        <p class="form-error" id="password-error"></p>
+        <pre id="password-hash" class="hash-box" hidden></pre>
       </div>
+      <footer class="modal-foot">
+        <button type="button" class="ghost" id="password-cancel-foot">Закрыть</button>
+        <button type="submit" class="btn primary">Сгенерировать</button>
+      </footer>
     </form>
   </dialog>
 
-  <script src="/shared/crm.js"></script>
-  <script src="/crm/app.js" defer></script>
+  <script src="/shared/crm.js?v=11"></script>
+  <script src="/crm/app.js?v=11" defer></script>
 </body>
 </html>
