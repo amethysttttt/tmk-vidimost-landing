@@ -204,8 +204,10 @@
   }
 
   function renderRows() {
+    var cards = $('leads-cards');
     if (!state.items.length) {
       $('leads-body').innerHTML = '<tr><td colspan="8" class="empty">Заявок пока нет</td></tr>';
+      if (cards) cards.innerHTML = '<div class="empty">Заявок пока нет</div>';
       return;
     }
     $('leads-body').innerHTML = state.items.map(function (item) {
@@ -224,17 +226,33 @@
           (item.next_action_at ? '<div class="muted">' + esc(fmtDay(item.next_action_at)) + '</div>' : '') +
         '</td></tr>';
     }).join('');
+    if (cards) {
+      cards.innerHTML = state.items.map(function (item) {
+        var overdue = item.next_action_overdue || item.audit_overdue;
+        var title = esc(item.name || item.company || 'Без имени');
+        return '<button type="button" class="lead-card' + (state.currentId === item.id ? ' active' : '') + '" data-id="' + item.id + '">' +
+          '<div class="lead-card-top"><span>#' + esc(item.number) + '</span><span class="muted">' + esc(fmtDate(item.created_at)) + '</span></div>' +
+          '<strong>' + title + '</strong>' +
+          '<div class="lead-card-phone">' + esc(item.phone || '—') + '</div>' +
+          '<div class="lead-card-meta">' + esc(item.service || item.comment || '—') + '</div>' +
+          '<div class="lead-card-foot">' + statusBadge(item.status, overdue) +
+            '<span class="muted">' + esc(sourceLabel(item.source)) + '</span></div>' +
+          '</button>';
+      }).join('');
+    }
   }
 
   function loadList(opts) {
     opts = opts || {};
     if (!opts.soft || !state.items.length) {
       $('leads-body').innerHTML = '<tr><td colspan="8" class="empty">Загрузка…</td></tr>';
+      if ($('leads-cards')) $('leads-cards').innerHTML = '<div class="empty">Загрузка…</div>';
     }
     return api('/api/crm/leads?' + filterParams().toString()).then(function (res) {
       if (res._status === 401) return showLogin();
       if (!res.ok) {
         $('leads-body').innerHTML = '<tr><td colspan="8" class="empty">Ошибка загрузки</td></tr>';
+        if ($('leads-cards')) $('leads-cards').innerHTML = '<div class="empty">Ошибка загрузки</div>';
         return res;
       }
       state.items = res.items || [];
@@ -256,6 +274,13 @@
     if (!tr) return;
     openLead(Number(tr.getAttribute('data-id')));
   });
+  if ($('leads-cards')) {
+    $('leads-cards').addEventListener('click', function (e) {
+      var card = e.target.closest('.lead-card[data-id]');
+      if (!card) return;
+      openLead(Number(card.getAttribute('data-id')));
+    });
+  }
 
   $('btn-refresh').addEventListener('click', loadList);
   $('btn-export').addEventListener('click', function () {
