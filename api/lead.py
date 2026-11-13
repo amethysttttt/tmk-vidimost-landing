@@ -3,15 +3,17 @@
 
 Путь: POST /api/lead
 1. Проверяет поля (имя, телефон +7XXXXXXXXXX, согласие) и ловушку для ботов.
-2. Передаёт заявку в Google Apps Script: он пишет строку в таблицу «Заявки с лендинга»
-   и отправляет письмо на tmk.techno.horizon@gmail.com.
-3. Отвечает {"ok": true} - после этого страница переводит человека на /spasibo.
+2. Передаёт заявку в CRM (Google Apps Script): она получает номер и статус «Новая»,
+   затем уходят уведомления на email и в WhatsApp (их сбой заявку не теряет).
+   Запрос на удаление данных пишется, как раньше, в лист «Заявки» и письмом на корпоративную почту.
+3. Отвечает {"ok": true} только после записи - тогда страница переводит человека на /spasibo.
    Если форма отправлена без JavaScript - сразу перенаправляет на /spasibo.
 
 Настройки (переменные окружения Vercel имеют приоритет над значениями ниже):
   LEADS_WEBHOOK_URL    - адрес веб-приложения Apps Script (.../exec)
   LEADS_WEBHOOK_SECRET - общий секрет с Apps Script, чтобы таблицу не заспамили напрямую
 """
+import hashlib
 import json
 import os
 import re
@@ -22,8 +24,16 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 from http.server import BaseHTTPRequestHandler
 
+import sys as _sys
+_sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _wa  # noqa: E402  отправка WhatsApp (общий модуль)
+
 WEBHOOK_URL = os.environ.get("LEADS_WEBHOOK_URL", "")
 WEBHOOK_SECRET = os.environ.get("LEADS_WEBHOOK_SECRET", "")
+# Серверы, которые пересылают сюда заявки от имени всех посетителей (сервер компании для ai.tmk-technohorizon.kz).
+# Для них IP посетителя неизвестен, поэтому ограничение «5 заявок за 10 минут с IP» не применяем:
+# иначе все клиенты считались бы одним адресом. От спама защищают ловушка для ботов, проверка полей и защита от дублей.
+TRUSTED_PROXIES = {ip.strip() for ip in os.environ.get("LEADS_TRUSTED_PROXIES", "185.146.3.124").split(",") if ip.strip()}
 
 MAX_BODY = 20 * 1024
 ALMATY = timezone(timedelta(hours=5))  # единый часовой пояс Казахстана с 01.03.2024
@@ -72,10 +82,35 @@ def validate(data):
     return lead, errors
 
 
-def send_to_sheet(lead):
+class RateLimited(Exception):
+    pass
+
+
+def crm_payload(lead, client_ip):
+    """Заявка на разбор - в CRM; запрос на удаление данных - старым путём (лист «Заявки»)."""
+    if lead["request_type"] == "deletion":
+        payload = dict(lead)
+        payload["action"] = "legacy"
+        return payload
+    key_src = "|".join(["landing", lead["phone"], lead["name"].lower(), lead["link"], lead["business_type"],
+                        lead["city"], lead["contact_method"], lead["package"], lead["message"]])
+    crm_lead = {
+        "source": "landing", "form_id": "seo_geo_razbor", "form_label": "Бесплатный разбор",
+        "service": "Бесплатный разбор SEO + GEO", "consent_policy": "да",
+        "consent_marketing": "да" if lead["marketing"] == "yes" else "нет",
+        "page_url": lead["page"], "dedupe_key": hashlib.sha256(key_src.encode("utf-8")).hexdigest(),
+    }
+    for k in ("name", "phone", "link", "business_type", "city", "contact_method", "package", "message", "referrer",
+              "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"):
+        crm_lead[k] = lead[k]
+    return {"action": "lead.create", "lead": crm_lead, "client_ip": client_ip,
+            "rate_limit": bool(client_ip) and client_ip not in TRUSTED_PROXIES}
+
+
+def send_to_sheet(lead, client_ip=""):
     if not WEBHOOK_URL:
         raise RuntimeError("LEADS_WEBHOOK_URL is not set")
-    payload = dict(lead)
+    payload = crm_payload(lead, client_ip)
     payload["secret"] = WEBHOOK_SECRET
     req = urllib.request.Request(
         WEBHOOK_URL,
@@ -91,7 +126,19 @@ def send_to_sheet(lead):
     except ValueError:
         raise RuntimeError("unexpected webhook response: " + body[:200])
     if not result.get("ok"):
+        if result.get("error") == "rate_limited":
+            raise RateLimited()
         raise RuntimeError("webhook error: " + str(result.get("error", ""))[:200])
+    return result
+
+
+def wa_report(job_id, status, error):
+    """Результат отправки WhatsApp - обратно в CRM (wa.done)."""
+    payload = {"secret": WEBHOOK_SECRET, "action": "wa.done", "job_id": job_id, "status": status, "error": error}
+    req = urllib.request.Request(WEBHOOK_URL, data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+                                 headers={"Content-Type": "application/json; charset=utf-8"}, method="POST")
+    with urllib.request.urlopen(req, timeout=15) as resp:
+        resp.read(1000)
 
 
 class handler(BaseHTTPRequestHandler):
@@ -163,12 +210,21 @@ class handler(BaseHTTPRequestHandler):
         if errors:
             return self._fail(400, "validation")
 
+        ip = (self.headers.get("X-Real-Ip") or (self.headers.get("X-Forwarded-For") or "").split(",")[0]).strip()
         try:
-            send_to_sheet(lead)
+            result = send_to_sheet(lead, ip[:64])
+        except RateLimited:
+            return self._fail(429, "rate_limited")
         except (urllib.error.URLError, RuntimeError, OSError, ValueError) as exc:
             # Заявка не должна потеряться: пишем её в журнал функции Vercel, чтобы восстановить вручную
             print("LEAD_NOT_DELIVERED", json.dumps(lead, ensure_ascii=False), repr(exc), file=sys.stderr)
             return self._fail(502, "delivery")
+
+        # Заявка уже записана; WhatsApp-уведомление - после записи, его сбой заявку не теряет
+        try:
+            _wa.process((result or {}).get("wa"), wa_report)
+        except Exception as exc:
+            print("WA_FAILED", repr(exc), file=sys.stderr)
 
         if self._wants_json():
             return self._json(200, {"ok": True})

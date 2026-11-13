@@ -37,6 +37,54 @@ TXT нужен, потому что домен уже привязан к дру
 Форма → `POST /api/lead` → Apps Script (адрес и секрет - в переменных окружения Vercel `LEADS_WEBHOOK_URL`, `LEADS_WEBHOOK_SECRET`) → строка в Google Таблице «Заявки с лендинга TMK (видимость бизнеса)» + письмо на tmk.techno.horizon@gmail.com → переход на `/spasibo`.
 Если таблица недоступна, посетитель видит ошибку с кнопкой WhatsApp, а заявка пишется в журнал функции Vercel (`LEAD_NOT_DELIVERED`).
 
+## CRM заявок (/crm)
+
+Закрытая CRM для заявок с лендинга и корпоративного сайта (ТЗ от 11.11.2026). Отдельной БД нет: данные лежат в Google Таблице, к ней обращается Apps Script.
+
+```
+браузер /crm ── crm.html + assets/crm.js
+     │  (cookie-сессия, HMAC)
+     ▼
+Vercel: api/crm.py ─────┐        api/lead.py   ← форма лендинга
+        api/intake.py ──┤        (Bearer CORP_INTAKE_KEY ← сервер tmk-technohorizon.kz)
+        api/_wa.py      │  JSON + общий секрет
+                        ▼
+Apps Script (apps-script/Code.gs, веб-приложение)
+        │ LockService, дедупликация, история, очередь писем (MailApp)
+        ▼
+Google Таблица: CRM_Заявки, CRM_История, CRM_Файлы, CRM_ФайлыДанные, CRM_Уведомления
+```
+
+- `api/crm.py` - вход (логин и пароль, PBKDF2, блокировка после 5 ошибок), сессии, список, карточка, файлы, настройки.
+- `api/intake.py` - приём заявок с сервера корпоративного сайта.
+- `api/lead.py` - форма лендинга. Заявки, пересланные сервером компании (`LEADS_TRUSTED_PROXIES`), не попадают под лимит «5 заявок за 10 минут с IP».
+- `api/_wa.py` - WhatsApp-уведомления (Meta Cloud API или CallMeBot), настраиваются в CRM.
+- Переменные Vercel:
+  - `LEADS_WEBHOOK_URL`, `LEADS_WEBHOOK_SECRET`;
+  - `CRM_SESSION_SECRET`, `CRM_LOGIN`, `CRM_INITIAL_HASH` (`pbkdf2_sha256$итерации$соль$хеш`);
+  - `CORP_INTAKE_KEY`.
+
+### Локальный запуск (без Google и Vercel)
+
+Нужны Python 3.9+ и Node.js 18+. Сторонних пакетов нет. Вместо Apps Script работает эмулятор `tools/gas-emulator.js`: он выполняет настоящий `Code.gs` с таблицей в памяти, а WhatsApp и почту только записывает, ничего не отправляя.
+
+```bash
+node tools/gas-emulator.js 8791        # терминал 1: «хранилище»
+python3 tools/devserver.py             # терминал 2: сайт и API на http://127.0.0.1:8790
+python3 tools/test_crm.py              # терминал 3: 68 проверок по пунктам приёмки ТЗ
+```
+
+- CRM: http://127.0.0.1:8790/crm, логин `dev`, пароль `dev-password-123` (только для локальной проверки).
+- Отправить заявку можно с формы лендинга http://127.0.0.1:8790/#zayavka.
+- Заявку «как с корпоративного сайта» можно отправить запросом:
+  ```bash
+  curl -X POST http://127.0.0.1:8790/api/intake -H "Authorization: Bearer dev-intake-key" \
+    -H "Content-Type: application/json" \
+    -d '{"name":"ТЕСТ Иван","phone":"+77011234567","service":"Разработка сайта","source":"process"}'
+  ```
+- Что «ушло» из эмулятора: `http://127.0.0.1:8791/__state` (листы), `/__mail` (письма), `/__fetch` (WhatsApp).
+- Тест очищает эмулятор (`/__reset`), поэтому после него перезапустите эмулятор, если хотите смотреть CRM с чистыми данными.
+
 ## Частые задачи
 
 **Вписать реквизиты компании.** Открыть `tools/build.py`, заполнить `REQUISITES` (legal_name, bin, address), выполнить `python3 tools/build.py`, опубликовать.
