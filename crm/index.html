@@ -7,7 +7,7 @@
   <title>CRM · TMK Techno Horizon</title>
   <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/assets/fonts/fonts.css">
-  <link rel="stylesheet" href="/crm/styles.css?v=11">
+  <link rel="stylesheet" href="/crm/styles.css?v=12">
 </head>
 <body>
   <div id="app">
@@ -135,6 +135,9 @@
               </tbody>
             </table>
           </div>
+          <div id="leads-cards" class="leads-cards" aria-live="polite">
+            <div class="empty">Загрузка…</div>
+          </div>
           <div class="pager">
             <button class="ghost" id="prev-page" type="button">←</button>
             <span id="page-label">1</span>
@@ -225,6 +228,6 @@
   </dialog>
 
   <script src="/shared/crm.js?v=11"></script>
-  <script src="/crm/app.js?v=11" defer></script>
+  <script src="/crm/app.js?v=12" defer></script>
 </body>
 </html>
