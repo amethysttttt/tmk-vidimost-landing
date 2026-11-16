@@ -1,0 +1,58 @@
+name: Deploy to production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Sync to VPS
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          set -euo pipefail
+          test -n "${DEPLOY_SSH_KEY:-}" || { echo "Secret DEPLOY_SSH_KEY is missing"; exit 1; }
+          test -n "${DEPLOY_HOST:-}" || { echo "Secret DEPLOY_HOST is missing"; exit 1; }
+          test -n "${DEPLOY_USER:-}" || { echo "Secret DEPLOY_USER is missing"; exit 1; }
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+          cat > ~/.ssh/config <<EOF
+          Host tmk-prod
+            HostName ${DEPLOY_HOST}
+            User ${DEPLOY_USER}
+            IdentityFile ~/.ssh/deploy_key
+            StrictHostKeyChecking accept-new
+          EOF
+          chmod 600 ~/.ssh/config
+
+      - name: Deploy code
+        env:
+          DEPLOY_HOST: tmk-prod
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          set -euo pipefail
+          chmod +x deploy/pskz/deploy_code.sh
+          if [[ -n "${DEPLOY_PATH:-}" ]]; then
+            export DEPLOY_PATH
+          else
+            export DEPLOY_PATH=/var/www/tmk-landing
+          fi
+          export DEPLOY_HOST
+          ./deploy/pskz/deploy_code.sh

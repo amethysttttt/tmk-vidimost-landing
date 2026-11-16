@@ -79,6 +79,10 @@ TXT нужен, потому что домен уже привязан к дру
 
 ## Частые задачи
 
-**Опубликовать.** `vercel deploy --prod` в папке лендинга.
+**Опубликовать на прод.** Push в `main` → GitHub Actions сам выкатывает на VPS.  
+Разовая настройка ключа и secrets: [deploy/pskz/SETUP_AUTODEPLOY.md](deploy/pskz/SETUP_AUTODEPLOY.md).  
+Вручную с Mac (если CI ещё не настроен): `./deploy/pskz/deploy_code.sh`.
+
+**Старый способ (Vercel).** `vercel deploy --prod` в папке лендинга — только если DNS снова на Vercel.
 
 **Смена пароля CRM.** В интерфейсе «Пароль» → сгенерировать bcrypt → сохранить в `CRM_PASSWORD_HASH`, убрать `CRM_PASSWORD`.
