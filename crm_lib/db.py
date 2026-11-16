@@ -109,7 +109,11 @@ def crm_configured() -> bool:
 
 @contextmanager
 def connect():
-    with psycopg.connect(database_url(), row_factory=dict_row) as conn:
+    with psycopg.connect(
+        database_url(),
+        row_factory=dict_row,
+        connect_timeout=10,
+    ) as conn:
         yield conn
 
 

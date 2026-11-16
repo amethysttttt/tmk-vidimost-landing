@@ -324,7 +324,7 @@
       layout.classList.add('with-card');
       $('card-pane').hidden = false;
       if (!opts.skipListReload) loadList({ soft: true });
-      history.replaceState(null, '', '/crm?lead=' + id);
+      history.replaceState(null, '', '/ai/crm?lead=' + id);
       return res;
     });
   }
@@ -334,7 +334,7 @@
     layout.classList.remove('with-card');
     state.currentId = null;
     renderRows();
-    history.replaceState(null, '', '/crm');
+    history.replaceState(null, '', '/ai/crm');
     loadList({ soft: true });
   });
 

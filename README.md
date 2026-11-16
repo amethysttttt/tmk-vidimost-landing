@@ -1,10 +1,12 @@
 # Лендинг «Вас найдут в Google, Яндексе, на картах и в ответах ИИ»
 
-Сайт: https://ai.tmk-technohorizon.kz (Vercel, проект `tmk-vidimost`).
+Лендинг: https://tmk-technohorizon.kz/ai  
+CRM: https://tmk-technohorizon.kz/ai/crm  
+(`ai.tmk-technohorizon.kz` редиректит на `/ai`)
 
 ## CRM заявок (оба сайта)
 
-Адрес: **https://ai.tmk-technohorizon.kz/crm**
+Адрес: **https://tmk-technohorizon.kz/ai/crm**
 
 Единый список лидов с SEO + GEO лендинга и корпоративного сайта Techno Horizon.
 
@@ -25,7 +27,7 @@
 - `CRM_LOGIN`, `CRM_PASSWORD` или `CRM_PASSWORD_HASH`
 - `CRM_INGEST_SECRET`
 - `SMTP_USER`, `SMTP_PASS`, `NOTIFY_EMAIL`
-- `CRM_PUBLIC_URL=https://ai.tmk-technohorizon.kz`
+- `CRM_PUBLIC_URL=https://tmk-technohorizon.kz`
 
 Опционально: `LEADS_WEBHOOK_URL` / `LEADS_WEBHOOK_SECRET` — дубль SEO-заявок в Google Sheets.
 
@@ -34,9 +36,10 @@
 В env проекта:
 
 ```
-CRM_INGEST_URL=https://ai.tmk-technohorizon.kz/api/crm/ingest
+CRM_INGEST_URL=https://tmk-technohorizon.kz/api/crm/ingest
 CRM_INGEST_SECRET=<тот же секрет>
 ```
+
 
 Формы и `CONTACT_TO` / публичные контакты не меняются. CRM пишется до SMTP; сбой почты после записи в CRM не ломает успех для посетителя.
 

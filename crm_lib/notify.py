@@ -14,7 +14,7 @@ def notify_to() -> str:
 
 
 def public_url() -> str:
-    return (os.environ.get("CRM_PUBLIC_URL") or "https://ai.tmk-technohorizon.kz").rstrip("/")
+    return (os.environ.get("CRM_PUBLIC_URL") or "https://tmk-technohorizon.kz").rstrip("/")
 
 
 def log_notification(lead_id: int, channel: str, status: str, detail: str):
@@ -33,7 +33,7 @@ def log_notification(lead_id: int, channel: str, status: str, detail: str):
 def send_email(lead: dict[str, Any]) -> tuple[bool, str]:
     to = notify_to()
     subject = f"Заявка #{lead.get('number')}: {lead.get('name') or lead.get('company') or 'без имени'}, {lead.get('phone')}"
-    link = f"{public_url()}/crm?lead={lead.get('id')}"
+    link = f"{public_url()}/ai/crm?lead={lead.get('id')}"
     body = "\n".join([
         f"Новая заявка #{lead.get('number')}",
         "",

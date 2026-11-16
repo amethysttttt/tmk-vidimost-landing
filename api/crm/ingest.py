@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
+import threading
 from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parents[2]
@@ -9,6 +10,7 @@ if str(_ROOT) not in sys.path:
 from crm_lib.auth import ingest_secret_ok
 from crm_lib.handlers import CrmHandler
 from crm_lib.http_util import read_json
+from crm_lib.notify import notify_all
 from crm_lib.service import create_lead
 
 
@@ -49,9 +51,25 @@ class handler(CrmHandler):
             "idempotency_key": data.get("idempotency_key") or "",
         }
         try:
-            lead = create_lead(payload, notify=True)
+            lead = create_lead(payload, notify=False)
         except ValueError as exc:
             return self.send_json(400, {"ok": False, "error": str(exc)})
         except Exception as exc:
             return self.send_json(500, {"ok": False, "error": "server", "detail": str(exc)[:200]})
-        return self.send_json(200, {"ok": True, "lead": {"id": lead["id"], "number": lead["number"], "duplicate": bool(lead.get("duplicate"))}})
+
+        try:
+            threading.Thread(target=notify_all, args=(lead,), daemon=True).start()
+        except Exception:
+            pass
+
+        return self.send_json(
+            200,
+            {
+                "ok": True,
+                "lead": {
+                    "id": lead["id"],
+                    "number": lead["number"],
+                    "duplicate": bool(lead.get("duplicate")),
+                },
+            },
+        )

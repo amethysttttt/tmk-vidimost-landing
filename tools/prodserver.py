@@ -62,8 +62,10 @@ class App(SimpleHTTPRequestHandler):
 
     def translate_path(self, path):
         p = path.split("?", 1)[0].split("#", 1)[0]
-        if p in ("/crm", "/crm/"):
+        if p in ("/crm", "/crm/", "/ai/crm", "/ai/crm/"):
             path = "/crm/index.html"
+        elif p.startswith("/ai/crm/"):
+            path = "/crm/" + p[len("/ai/crm/"):]
         elif p != "/" and not os.path.splitext(p)[1]:
             html = ROOT / (p.lstrip("/") + ".html")
             if html.exists():
