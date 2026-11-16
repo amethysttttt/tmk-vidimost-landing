@@ -111,6 +111,89 @@
 
   /* ---------- Форма заявки ---------- */
   var form = document.getElementById('lead-form');
+  var started = false;
+
+  /* ---------- Кастомный select ---------- */
+  (function initCustomSelects() {
+    var roots = document.querySelectorAll('[data-custom-select]');
+    for (var i = 0; i < roots.length; i++) {
+      (function (root) {
+        var input = root.querySelector('input[type="hidden"]');
+        var btn = root.querySelector('.custom-select-trigger');
+        var valueEl = root.querySelector('.custom-select-value');
+        var list = root.querySelector('.custom-select-list');
+        var options = list ? list.querySelectorAll('[role="option"]') : [];
+        if (!input || !btn || !list) { return; }
+
+        function close() {
+          root.classList.remove('is-open');
+          btn.setAttribute('aria-expanded', 'false');
+          list.hidden = true;
+        }
+        function open() {
+          root.classList.add('is-open');
+          btn.setAttribute('aria-expanded', 'true');
+          list.hidden = false;
+          var selected = list.querySelector('[aria-selected="true"]') || options[0];
+          if (selected) { selected.focus(); }
+        }
+        function setValue(opt) {
+          var val = opt.getAttribute('data-value') || '';
+          input.value = val;
+          valueEl.textContent = val || 'Выберите';
+          valueEl.classList.toggle('is-placeholder', !val);
+          for (var j = 0; j < options.length; j++) {
+            options[j].setAttribute('aria-selected', options[j] === opt ? 'true' : 'false');
+          }
+          close();
+          btn.focus();
+          if (!started && form) { started = true; track('form_start', 'form_start', {}); }
+        }
+
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (root.classList.contains('is-open')) { close(); } else { open(); }
+        });
+        btn.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            open();
+          }
+        });
+        for (var k = 0; k < options.length; k++) {
+          options[k].addEventListener('click', function () { setValue(this); });
+          options[k].addEventListener('keydown', function (e) {
+            var items = Array.prototype.slice.call(options);
+            var idx = items.indexOf(this);
+            if (e.key === 'ArrowDown') {
+              e.preventDefault();
+              (items[idx + 1] || items[0]).focus();
+            } else if (e.key === 'ArrowUp') {
+              e.preventDefault();
+              (items[idx - 1] || items[items.length - 1]).focus();
+            } else if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setValue(this);
+            } else if (e.key === 'Escape') {
+              e.preventDefault();
+              close();
+              btn.focus();
+            }
+          });
+        }
+        document.addEventListener('click', function (e) {
+          if (!root.contains(e.target)) { close(); }
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && root.classList.contains('is-open')) {
+            close();
+            btn.focus();
+          }
+        });
+      })(roots[i]);
+    }
+  })();
+
   if (!form) { return; }
 
   var phone = form.querySelector('#f-phone');
@@ -167,7 +250,6 @@
   });
 
   /* form_start - один раз, на первом действии в форме */
-  var started = false;
   form.addEventListener('input', function () {
     if (!started) { started = true; track('form_start', 'form_start', {}); }
   });

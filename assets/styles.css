@@ -474,6 +474,36 @@ h1, h2, h3 { margin: 0; }
 }
 .field select { background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 22px) 52%, calc(100% - 16px) 52%; background-size: 6px 6px; background-repeat: no-repeat; padding-right: 40px; }
 .field input:focus, .field select:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 4px rgba(26, 95, 245, .16); }
+
+/* Кастомный select */
+.custom-select { position: relative; }
+.custom-select-trigger {
+  position: relative; width: 100%; min-height: 50px; padding: 12px 44px 12px 14px; border: 1px solid #C9D2E4; border-radius: 12px;
+  background: var(--white); font: inherit; font-size: 16px; color: var(--ink); text-align: left; cursor: pointer;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.custom-select-trigger:hover { border-color: #A8B4CC; }
+.custom-select.is-open .custom-select-trigger,
+.custom-select-trigger:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 4px rgba(47, 107, 255, .16); }
+.custom-select-value.is-placeholder { color: #6B7489; }
+.custom-select-caret {
+  position: absolute; right: 16px; top: 50%; width: 10px; height: 10px; margin-top: -7px;
+  border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg);
+  pointer-events: none; transition: transform .15s ease;
+}
+.custom-select.is-open .custom-select-caret { transform: rotate(-135deg); margin-top: -2px; }
+.custom-select-list {
+  position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 30; margin: 0; padding: 6px;
+  list-style: none; max-height: 260px; overflow: auto; background: var(--white);
+  border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 18px 48px -20px rgba(11, 18, 36, .35);
+}
+.custom-select-list[hidden] { display: none; }
+.custom-select-list li {
+  padding: 11px 12px; border-radius: 10px; cursor: pointer; color: var(--text); font-size: 15.5px; line-height: 1.35;
+}
+.custom-select-list li:hover,
+.custom-select-list li.is-active { background: var(--haze); color: var(--ink); }
+.custom-select-list li[aria-selected="true"] { background: #EAF0FF; color: var(--brand-ink); font-weight: 600; }
 .field input::placeholder { color: #6B7489; }
 .field .error-text { display: none; color: var(--error); font-size: 14px; margin-top: 6px; font-weight: 500; }
 .field.has-error input, .field.has-error select { border-color: var(--error); }

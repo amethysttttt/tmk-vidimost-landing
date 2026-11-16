@@ -30,9 +30,9 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts/fonts.css">
-<link rel="stylesheet" href="/assets/styles.css?v=17">
+<link rel="stylesheet" href="/assets/styles.css?v=18">
 <script src="/assets/analytics.js" defer></script>
-<script src="/assets/app.js?v=17" defer></script>
+<script src="/assets/app.js?v=18" defer></script>
 
 <script type="application/ld+json">
 {
@@ -345,23 +345,29 @@
             <p class="error-text" id="e-phone">Введите номер полностью: +7 и 10 цифр</p>
           </div>
           <div class="field full">
-            <label for="f-business">Чем занимается бизнес</label>
-            <select id="f-business" name="business_type">
-              <option value="">Выберите</option>
-              <option>Медицина и стоматология</option>
-              <option>Юридические и финансовые услуги</option>
-              <option>Недвижимость и строительство</option>
-              <option>Ремонт и отделка</option>
-              <option>Образование и курсы</option>
-              <option>B2B-услуги</option>
-              <option>Производство и оптовые продажи</option>
-              <option>Мебель на заказ</option>
-              <option>Салон красоты</option>
-              <option>Автосервис</option>
-              <option>Общепит</option>
-              <option>Интернет-магазин</option>
-              <option>Другое</option>
-            </select>
+            <span class="label" id="business-label">Чем занимается бизнес</span>
+            <div class="custom-select" data-custom-select>
+              <input type="hidden" id="f-business" name="business_type" value="">
+              <button type="button" class="custom-select-trigger" id="f-business-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="business-label f-business-btn">
+                <span class="custom-select-value is-placeholder">Выберите</span>
+                <span class="custom-select-caret" aria-hidden="true"></span>
+              </button>
+              <ul class="custom-select-list" role="listbox" aria-labelledby="business-label" hidden>
+                <li role="option" tabindex="-1" data-value="Медицина и стоматология">Медицина и стоматология</li>
+                <li role="option" tabindex="-1" data-value="Юридические и финансовые услуги">Юридические и финансовые услуги</li>
+                <li role="option" tabindex="-1" data-value="Недвижимость и строительство">Недвижимость и строительство</li>
+                <li role="option" tabindex="-1" data-value="Ремонт и отделка">Ремонт и отделка</li>
+                <li role="option" tabindex="-1" data-value="Образование и курсы">Образование и курсы</li>
+                <li role="option" tabindex="-1" data-value="B2B-услуги">B2B-услуги</li>
+                <li role="option" tabindex="-1" data-value="Производство и оптовые продажи">Производство и оптовые продажи</li>
+                <li role="option" tabindex="-1" data-value="Мебель на заказ">Мебель на заказ</li>
+                <li role="option" tabindex="-1" data-value="Салон красоты">Салон красоты</li>
+                <li role="option" tabindex="-1" data-value="Автосервис">Автосервис</li>
+                <li role="option" tabindex="-1" data-value="Общепит">Общепит</li>
+                <li role="option" tabindex="-1" data-value="Интернет-магазин">Интернет-магазин</li>
+                <li role="option" tabindex="-1" data-value="Другое">Другое</li>
+              </ul>
+            </div>
           </div>
           <div class="field full">
             <label for="f-link">Сайт, 2ГИС или Instagram <span class="opt">— если есть</span></label>
