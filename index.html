@@ -30,9 +30,9 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts/fonts.css">
-<link rel="stylesheet" href="/assets/styles.css?v=16">
+<link rel="stylesheet" href="/assets/styles.css?v=17">
 <script src="/assets/analytics.js" defer></script>
-<script src="/assets/app.js?v=16" defer></script>
+<script src="/assets/app.js?v=17" defer></script>
 
 <script type="application/ld+json">
 {
@@ -70,9 +70,7 @@
       "areaServed": { "@type": "Country", "name": "Казахстан" },
       "offers": [
         { "@type": "Offer", "name": "Бесплатный разбор видимости", "price": "0", "priceCurrency": "KZT" },
-        { "@type": "Offer", "name": "Старт", "priceSpecification": { "@type": "UnitPriceSpecification", "minPrice": 180000, "maxPrice": 260000, "priceCurrency": "KZT", "unitText": "месяц" } },
-        { "@type": "Offer", "name": "Рост", "priceSpecification": { "@type": "UnitPriceSpecification", "minPrice": 280000, "maxPrice": 380000, "priceCurrency": "KZT", "unitText": "месяц" } },
-        { "@type": "Offer", "name": "Лидер", "priceSpecification": { "@type": "UnitPriceSpecification", "minPrice": 400000, "maxPrice": 560000, "priceCurrency": "KZT", "unitText": "месяц" } }
+        { "@type": "Offer", "name": "Продвижение в поиске, на картах и в ИИ", "priceSpecification": { "@type": "UnitPriceSpecification", "minPrice": 180000, "priceCurrency": "KZT", "unitText": "месяц" } }
       ]
     },
     {
@@ -114,7 +112,6 @@
       <a href="#kak-nahodyat">Проблема</a>
       <a href="#chto-delaem">Как работаем</a>
       <a href="#razbor">Разбор</a>
-      <a href="#ceny">Цены</a>
       <a href="#voprosy">Вопросы</a>
     </nav>
     <div class="header-actions">
@@ -304,83 +301,8 @@
   </div>
 </section>
 
-<!-- 6. Цены -->
-<section class="section section-tint" id="ceny" aria-labelledby="price-title">
-  <div class="wrap">
-    <div class="section-head center">
-      <h2 id="price-title" class="h2">Сколько это стоит</h2>
-      <p class="lead"><b>От 180 000 ₸ в месяц.</b> Точный объём назовём после бесплатного разбора. Цена зависит от пакета и конкуренции в нише.</p>
-    </div>
-
-    <fieldset class="niche-switch">
-      <legend>Выберите сферу — увидите цену пакета</legend>
-      <div class="niche-options">
-        <label><input type="radio" name="niche" value="c"><b>Конкуренция ниже</b><span>салоны, автосервис, клининг, общепит</span></label>
-        <label><input type="radio" name="niche" value="b" checked><b>Средняя конкуренция</b><span>образование, B2B, мебель, бухгалтерия</span></label>
-        <label><input type="radio" name="niche" value="a"><b>Высокая конкуренция</b><span>медицина, юристы, недвижимость, ремонт</span></label>
-      </div>
-    </fieldset>
-
-    <div class="plans">
-      <article class="card plan">
-        <div class="plan-top"><h3 class="h3">Старт</h3></div>
-        <p class="plan-for">Одна точка в одном городе</p>
-        <p class="plan-price" data-price data-a="260000" data-b="220000" data-c="180000">220 000 ₸</p>
-        <p class="plan-period">в месяц · минимум от 180 000 ₸</p>
-        <ul>
-          <li>До 10 страниц услуг на сайте</li>
-          <li>2 новых материала в месяц</li>
-          <li>Карточки в 2ГИС, Яндекс и Google Картах</li>
-          <li>Ежемесячная проверка ответов ИИ</li>
-          <li>Отчёт каждый месяц</li>
-        </ul>
-        <a class="btn btn-ghost btn-wide" href="#zayavka" data-package="start">Обсудить «Старт»</a>
-      </article>
-      <article class="card plan plan-featured on-dark">
-        <div class="plan-top"><h3 class="h3">Рост</h3><span class="plan-badge">Рекомендуем</span></div>
-        <p class="plan-for">Клиники, сервисы, несколько направлений</p>
-        <p class="plan-price" data-price data-a="380000" data-b="320000" data-c="280000">320 000 ₸</p>
-        <p class="plan-period">в месяц</p>
-        <ul>
-          <li>До 30 страниц услуг на сайте</li>
-          <li>4 новых материала в месяц</li>
-          <li>Карты, каталоги и отраслевые площадки</li>
-          <li>Страница цен и ответы на частые вопросы</li>
-          <li>Расширенная проверка ответов ИИ</li>
-          <li>Отчёт и созвон каждый месяц</li>
-        </ul>
-        <a class="btn btn-light btn-wide" href="#zayavka" data-package="rost">Обсудить «Рост»</a>
-      </article>
-      <article class="card plan">
-        <div class="plan-top"><h3 class="h3">Лидер</h3></div>
-        <p class="plan-for">Сети с филиалами и сайты на двух языках</p>
-        <p class="plan-price" data-price data-a="560000" data-b="480000" data-c="400000">480 000 ₸</p>
-        <p class="plan-period">в месяц</p>
-        <ul>
-          <li>Все филиалы на картах</li>
-          <li>8 новых материалов в месяц</li>
-          <li>До 5 новых площадок в месяц</li>
-          <li>Казахская версия сайта</li>
-          <li>Полная проверка ответов ИИ</li>
-          <li>Созвон раз в 2 недели</li>
-        </ul>
-        <a class="btn btn-ghost btn-wide" href="#zayavka" data-package="lider">Обсудить «Лидер»</a>
-      </article>
-    </div>
-
-    <div class="terms">
-      <p>Договор от 6 месяцев, оплата помесячно</p>
-      <p>При оплате за год — скидка 10%</p>
-      <p>Казахская версия для «Старта» и «Роста» — плюс 30%</p>
-      <p>Интернет-магазины и большие каталоги — по смете, от 450 000 ₸</p>
-      <p>Скрытых платежей нет. Платные размещения — только с вашего согласия</p>
-      <p>Условия возврата — в <a href="/vozvrat">политике возврата средств</a></p>
-    </div>
-  </div>
-</section>
-
-<!-- 7. FAQ -->
-<section class="section" id="voprosy" aria-labelledby="faq-title">
+<!-- 6. FAQ -->
+<section class="section section-tint" id="voprosy" aria-labelledby="faq-title">
   <div class="wrap">
     <div class="section-head center">
       <h2 id="faq-title" class="h2">Частые вопросы</h2>
