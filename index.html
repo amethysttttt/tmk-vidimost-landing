@@ -30,9 +30,9 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts/fonts.css">
-<link rel="stylesheet" href="/assets/styles.css?v=13">
+<link rel="stylesheet" href="/assets/styles.css?v=15">
 <script src="/assets/analytics.js" defer></script>
-<script src="/assets/app.js?v=13" defer></script>
+<script src="/assets/app.js?v=15" defer></script>
 
 <script type="application/ld+json">
 {
@@ -81,11 +81,10 @@
       "@id": "https://ai.tmk-technohorizon.kz/#faq",
       "mainEntity": [
         { "@type": "Question", "name": "Это гарантия, что ИИ будет рекомендовать именно нас?", "acceptedAnswer": { "@type": "Answer", "text": "Нет. Ответы ИИ меняются от запроса к запросу, и гарантировать их не может никто. Мы делаем так, чтобы о вашем бизнесе было достаточно понятных и проверяемых сведений в поиске, на картах и на внешних площадках, и каждый месяц показываем, как меняется картина." } },
-        { "@type": "Question", "name": "Это заменит рекламу?", "acceptedAnswer": { "@type": "Answer", "text": "Нет. Реклама даёт заявки быстро, пока вы платите. Поиск, карты и ИИ - дополнительный канал, который может работать рядом с рекламой и оставаться полезным, когда кампания на паузе. Эффект зависит от спроса, конкуренции и качества продвижения." } },
-        { "@type": "Question", "name": "Когда будут первые изменения?", "acceptedAnswer": { "@type": "Answer", "text": "За первые 90 дней создаём основу и измеряем первые изменения: сайт, карточки, контент, отзывы. Устойчивый результат обычно ждём к шестому месяцу - это ориентир, а не гарантия. Поэтому договор от 6 месяцев." } },
+        { "@type": "Question", "name": "Это заменит рекламу?", "acceptedAnswer": { "@type": "Answer", "text": "Нет. Реклама даёт заявки быстро, пока вы платите. Поиск, карты и ИИ — дополнительный канал рядом с рекламой; он может оставаться полезным, когда кампания на паузе. Эффект зависит от спроса, конкуренции и качества продвижения." } },
+        { "@type": "Question", "name": "Когда будут первые изменения?", "acceptedAnswer": { "@type": "Answer", "text": "За первые 90 дней создаём основу и измеряем первые изменения. Более устойчивую картину обычно ждут к шестому месяцу — это ориентир, а не гарантия. Поэтому договор от 6 месяцев." } },
         { "@type": "Question", "name": "Сколько стоит?", "acceptedAnswer": { "@type": "Answer", "text": "От 180 000 ₸ в месяц. Точный объём и пакет называем после бесплатного разбора: цена зависит от конкуренции в нише и состава работ." } },
-        { "@type": "Question", "name": "Нужен ли новый сайт?", "acceptedAnswer": { "@type": "Answer", "text": "Чаще всего нет: текущий сайт можно доработать. Если сайта нет или он устарел, TMK Techno Horizon сделает новый сразу готовым для поиска и ИИ. Что выгоднее, покажет разбор." } },
-        { "@type": "Question", "name": "Бесплатный разбор - в чём подвох?", "acceptedAnswer": { "@type": "Answer", "text": "Подвоха нет. Это способ показать, как вас видят клиенты сегодня. Отчёт остаётся у вас, даже если вы решите работать с кем-то другим или делать всё сами." } }
+        { "@type": "Question", "name": "Бесплатный разбор — в чём подвох?", "acceptedAnswer": { "@type": "Answer", "text": "Подвоха нет. Это способ показать, как вас видят клиенты сегодня. Отчёт остаётся у вас, даже если вы решите работать с кем-то другим или делать всё сами." } }
       ]
     }
   ]
@@ -114,8 +113,8 @@
       <img class="logo-dark" src="/assets/logo-dark.png" alt="" width="139" height="24" aria-hidden="true">
     </a>
     <nav class="nav" aria-label="Разделы страницы">
-      <a href="#kak-nahodyat">Как вас находят</a>
-      <a href="#chto-delaem">Что делаем</a>
+      <a href="#kak-nahodyat">Путь клиента</a>
+      <a href="#vygoda">Выгода</a>
       <a href="#razbor">Разбор</a>
       <a href="#ceny">Цены</a>
       <a href="#voprosy">Вопросы</a>
@@ -132,59 +131,52 @@
 
 <!-- 1. Первый экран -->
 <section class="hero on-dark" aria-labelledby="hero-title">
-  <div class="wrap">
-    <div class="hero-inner">
+  <div class="wrap hero-layout">
+    <div class="hero-copy rise">
       <p class="hero-chip"><b>0 ₸</b>Бесплатный разбор за 3 рабочих дня</p>
-      <h1 id="hero-title" class="h1">Клиенты ищут вашу услугу в Google и спрашивают ИИ. <br class="br-wide">Находят ли они ваш бизнес?</h1>
-      <p class="lead">Помогаем компаниям становиться заметнее в поиске, на картах и в рекомендациях ИИ, чтобы потенциальные покупатели могли находить вас и обращаться напрямую — а не уходить к конкурентам.</p>
-      <div class="hero-actions">
-        <a class="btn btn-light" href="#zayavka" data-cta="hero">Проверить видимость моего бизнеса</a>
-        <a class="btn btn-glass" href="https://wa.me/77479071622?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80%3A%20%D0%BD%D0%B0%D1%85%D0%BE%D0%B4%D1%8F%D1%82%20%D0%BB%D0%B8%20%D0%BC%D0%BE%D0%B9%20%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%20%D0%B2%20%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%B5%2C%20%D0%BD%D0%B0%20%D0%BA%D0%B0%D1%80%D1%82%D0%B0%D1%85%20%D0%B8%20%D0%B2%20%D0%BE%D1%82%D0%B2%D0%B5%D1%82%D0%B0%D1%85%20%D0%98%D0%98." target="_blank" rel="noopener" data-loc="hero"><svg aria-hidden="true"><use href="#i-wa"/></svg>Написать в WhatsApp</a>
-      </div>
-      <p class="hero-note">Бесплатный разбор за 3 рабочих дня · Google, Яндекс, карты и ИИ</p>
-      <ul class="hero-channels">
-        <li>Поиск Google и Яндекса</li>
-        <li>2ГИС, Яндекс и Google Карты</li>
-        <li>ChatGPT, Алиса, Gemini</li>
+      <h1 id="hero-title" class="h1">Клиенты ищут вашу услугу в Google и спрашивают ИИ.<br> <span class="accent">Находят ли они ваш бизнес?</span></h1>
+      <p class="lead">Помогаем компаниям становиться заметнее в поиске, на картах и в рекомендациях ИИ, чтобы потенциальные покупатели могли находить вас и обращаться напрямую.</p>
+      <ul class="hero-checks">
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg>Google и Яндекс — страницы под реальные запросы</li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg>2ГИС и карты — полные карточки рядом с клиентом</li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg>ChatGPT, Алиса, Gemini — понятные сведения о компании</li>
       </ul>
+      <div class="hero-actions">
+        <a class="btn btn-main" href="#zayavka" data-cta="hero">Проверить видимость моего бизнеса</a>
+        <a class="btn btn-glass" href="https://wa.me/77479071622?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80%3A%20%D0%BD%D0%B0%D1%85%D0%BE%D0%B4%D1%8F%D1%82%20%D0%BB%D0%B8%20%D0%BC%D0%BE%D0%B9%20%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%20%D0%B2%20%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%B5%2C%20%D0%BD%D0%B0%20%D0%BA%D0%B0%D1%80%D1%82%D0%B0%D1%85%20%D0%B8%20%D0%B2%20%D0%BE%D1%82%D0%B2%D0%B5%D1%82%D0%B0%D1%85%20%D0%98%D0%98." target="_blank" rel="noopener" data-loc="hero"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
+      </div>
+      <p class="hero-note">Клиенты могут находить вас и когда реклама на паузе. Эффект зависит от спроса, конкуренции и качества продвижения.</p>
     </div>
 
-    <div class="stage rise" role="img" aria-label="Пример ежемесячного отчёта клиенту: сколько обращений пришло за месяц и из каких каналов - поиск, карты, ответы ИИ и реклама. Цифры условные">
-      <div class="app" aria-hidden="true">
-        <div class="app-side">
-          <p class="app-org"><i></i>Ваша компания</p>
-          <ul class="app-nav">
-            <li class="on">Обзор</li>
-            <li>Поиск</li>
-            <li>Карты</li>
-            <li>Ответы ИИ</li>
-            <li>Заявки</li>
-          </ul>
-        </div>
-        <div class="app-main">
-          <div class="app-top"><span>Отчёт о видимости за месяц</span><span class="app-tag">Пример</span></div>
-          <p class="app-label">Обращения за месяц</p>
-          <div class="app-figure"><b>60</b><span>звонки, WhatsApp и заявки с сайта</span></div>
-          <div class="app-bar"><i class="s1" style="width:38%"></i><i class="s2" style="width:27%"></i><i class="s3" style="width:15%"></i><i class="s4" style="width:20%"></i></div>
-          <div class="app-cards">
-            <div class="app-card s1"><p class="k"><span>Поиск</span>38%</p><p class="v">23</p></div>
-            <div class="app-card s2"><p class="k"><span>Карты</span>27%</p><p class="v">16</p></div>
-            <div class="app-card s3"><p class="k"><span>Ответы ИИ</span>15%</p><p class="v">9</p></div>
-            <div class="app-card s4"><p class="k"><span>Реклама</span>20%</p><p class="v">12</p></div>
+    <div class="phone-wrap rise" role="img" aria-label="Условный пример ответа ИИ на запрос клиента. Это иллюстрация, не реальный результат">
+      <div class="phone" aria-hidden="true">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <p class="phone-app">ИИ-помощник · пример</p>
+          <div class="chat-user">Где заказать кухню в Алматы?</div>
+          <div class="chat-ai">
+            <p>Могу предложить несколько вариантов:</p>
+            <ol>
+              <li><b>Studio Nord</b> — отзывы, цены на сайте</li>
+              <li><b>Кухни Home+</b> — карты и 2ГИС заполнены</li>
+              <li><b>АлмаКухни</b> — кейсы и сроки</li>
+            </ol>
+            <p class="chat-miss">А вашей компании в списке нет?</p>
           </div>
         </div>
       </div>
+      <p class="phone-caption">Условный пример. Ответы ИИ меняются от запроса к запросу.</p>
     </div>
   </div>
 </section>
-<p class="stage-caption wrap">Так выглядит наш ежемесячный отчёт. Цифры на картинке условные.</p>
 
-<!-- 2. Как клиент находит компанию -->
+<!-- 2. Путь клиента -->
 <section class="section section-first" id="kak-nahodyat" aria-labelledby="path-title">
   <div class="wrap">
     <div class="section-head center">
-      <h2 id="path-title" class="h2">От поиска до заявки: <br class="br-wide">как клиент выбирает компанию</h2>
-      <p class="lead">Конкретный пример пути. Если вас нет в вариантах на втором шаге, до сравнения и звонка дело часто не доходит.</p>
+      <p class="eyebrow">Пример пути</p>
+      <h2 id="path-title" class="h2">От поиска до заявки: как клиент выбирает компанию</h2>
+      <p class="lead">Конкретный пример. Если вас нет в вариантах на втором шаге, до сравнения и звонка дело часто не доходит.</p>
     </div>
     <div class="card journey">
       <div class="query" aria-hidden="true"><svg><use href="#i-search"/></svg>Где заказать кухню в Алматы?</div>
@@ -198,7 +190,7 @@
           <p>Ищет в Google и Яндексе, открывает 2ГИС или просит совета у ИИ — и получает короткий список вариантов.</p>
           <div class="where"><span>Google</span><span>Яндекс</span><span>2ГИС</span><span>ChatGPT</span><span>Алиса</span></div>
         </li>
-        <li class="is-key">
+        <li>
           <h3 class="h3">Сравнивает</h3>
           <p>Смотрит сайт, цены, отзывы, адрес и режим работы. Выбирает тех, о ком больше понятной и свежей информации.</p>
         </li>
@@ -214,7 +206,6 @@
           <p class="f-url">vasha-kuhnya.kz</p>
           <p class="f-title"><span class="f-you">Ваша мастерская</span> — кухни на заказ в Алматы</p>
           <p>Цены, сроки и примеры работ на сайте</p>
-          <p class="f-other">Другая мастерская — кухни на заказ</p>
         </div>
         <div class="f-card" aria-hidden="true">
           <p class="f-src">2ГИС и карты</p>
@@ -230,20 +221,20 @@
         <div class="f-card" aria-hidden="true">
           <p class="f-src">ИИ-помощник</p>
           <p class="f-ask">Где заказать кухню в Алматы?</p>
-          <p>Можно обратиться в <span class="f-you">«Вашу мастерскую»</span>: на сайте есть цены, сроки и примеры работ, есть запись на замер.</p>
+          <p>Можно обратиться в <span class="f-you">«Вашу мастерскую»</span>: на сайте есть цены, сроки и примеры работ.</p>
         </div>
       </div>
       <p class="found-note">Условный пример для ниши кухонь. Названия вымышленные; ответы поиска и ИИ меняются от запроса к запросу.</p>
 
       <div class="path-warning">
         <strong>Где теряются заявки</strong>
-        <span>Компании нет в коротком списке вариантов — на картах, в поиске или в ответе ИИ. Тогда до сравнения и звонка клиент часто просто не доходит.</span>
+        <span>Компании нет в коротком списке — на картах, в поиске или в ответе ИИ. Тогда до сравнения и звонка клиент часто просто не доходит.</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 2b. Почему могут не находить -->
+<!-- 3. Почему могут не находить -->
 <section class="section" id="pochemu" aria-labelledby="problems-title">
   <div class="wrap">
     <div class="section-head center">
@@ -252,22 +243,22 @@
     </div>
     <div class="problems">
       <div class="card problem">
-        <span class="problem-mark" aria-hidden="true">1</span>
+        <span class="problem-x" aria-hidden="true">×</span>
         <h3 class="h3">Неясный сайт</h3>
         <p>Сложно понять, что вы продаёте, сколько это стоит и как оставить заявку.</p>
       </div>
       <div class="card problem">
-        <span class="problem-mark" aria-hidden="true">2</span>
+        <span class="problem-x" aria-hidden="true">×</span>
         <h3 class="h3">Неполные карточки на картах</h3>
         <p>Мало фото, нет часов работы, услуг и актуального телефона в 2ГИС, Яндекс и Google Картах.</p>
       </div>
       <div class="card problem">
-        <span class="problem-mark" aria-hidden="true">3</span>
+        <span class="problem-x" aria-hidden="true">×</span>
         <h3 class="h3">Мало достоверных отзывов и кейсов</h3>
         <p>Клиенту и ИИ нечем подтвердить, что вам можно доверять.</p>
       </div>
       <div class="card problem">
-        <span class="problem-mark" aria-hidden="true">4</span>
+        <span class="problem-x" aria-hidden="true">×</span>
         <h3 class="h3">Слабая представленность снаружи</h3>
         <p>О вас почти нет упоминаний на внешних площадках — только соцсети, которые поиск и ИИ видят хуже.</p>
       </div>
@@ -279,139 +270,72 @@
   </div>
 </section>
 
-<!-- 3. Что это даёт бизнесу -->
-<section class="section section-tint" aria-labelledby="benefits-title">
+<!-- 4. Коммерческая выгода -->
+<section class="section section-tint" id="vygoda" aria-labelledby="benefits-title">
   <div class="wrap">
     <div class="section-head center">
-      <h2 id="benefits-title" class="h2">Заметность там, где ищут услугу</h2>
-      <p class="lead">Клиенты могут находить вас и тогда, когда рекламная кампания стоит на паузе. Эффект зависит от спроса, конкуренции и качества продвижения.</p>
+      <h2 id="benefits-title" class="h2">Что это даёт бизнесу</h2>
+      <p class="lead">Заметность там, где ищут услугу — без обещания полностью отказаться от рекламы.</p>
     </div>
-    <div class="bento">
-      <figure class="card chart-card" style="margin:0">
-        <h3 class="h3">Откуда приходят обращения: принцип</h3>
-        <p class="small">Схема, а не прогноз: показывает, как ведут себя два канала.</p>
-        <ul class="chart-legend">
-          <li><i style="background:#8A93A8"></i>Только реклама</li>
-          <li><i style="background:#1A5FF5;height:5px"></i>Поиск, карты и ИИ</li>
-        </ul>
-        <div class="chart">
-          <svg viewBox="0 0 560 270" role="img" aria-labelledby="chart-t chart-d">
-            <title id="chart-t">Реклама и бесплатные каналы: как меняется число обращений</title>
-            <desc id="chart-d">Реклама даёт обращения с первого месяца, но после остановки бюджета на восьмом месяце они падают почти до нуля. Обращения из поиска, карт и ИИ растут постепенно с третьего месяца и остаются после остановки рекламы.</desc>
-            <defs><linearGradient id="g-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A5FF5" stop-opacity=".18"/><stop offset="1" stop-color="#1A5FF5" stop-opacity="0"/></linearGradient></defs>
-            <g stroke="#E3E8F2" stroke-width="1">
-              <line x1="40" y1="30" x2="540" y2="30"/><line x1="40" y1="90" x2="540" y2="90"/><line x1="40" y1="150" x2="540" y2="150"/>
-            </g>
-            <line x1="40" y1="220" x2="540" y2="220" stroke="#B9C3D6" stroke-width="1.5"/>
-            <line x1="358" y1="22" x2="358" y2="220" stroke="#B9C3D6" stroke-width="1.5" stroke-dasharray="5 5"/>
-            <text x="364" y="40" font-size="13" fill="#525D75">Бюджет на рекламу</text>
-            <text x="364" y="57" font-size="13" fill="#525D75">закончился</text>
-            <path d="M40 216 C 90 216, 110 212, 130 204 S 190 170, 222 150 S 300 112, 358 100 S 470 82, 540 78 L 540 220 L 40 220 Z" fill="url(#g-fill)"/>
-            <path d="M40 92 C 70 88, 90 86, 130 88 S 200 92, 240 87 S 310 90, 350 88 L 358 88 C 368 150, 376 200, 400 212 S 470 216, 540 216" fill="none" stroke="#8A93A8" stroke-width="2.5" stroke-linejoin="round"/>
-            <path d="M40 216 C 90 216, 110 212, 130 204 S 190 170, 222 150 S 300 112, 358 100 S 470 82, 540 78" fill="none" stroke="#1A5FF5" stroke-width="4" stroke-linecap="round"/>
-            <text x="40" y="244" font-size="13" fill="#525D75">1-й месяц</text>
-            <text x="540" y="244" font-size="13" fill="#525D75" text-anchor="end">12-й месяц</text>
-            <text x="40" y="18" font-size="13" fill="#525D75">Обращения</text>
-          </svg>
+    <div class="benefit-grid">
+      <div class="card benefit">
+        <span class="ico"><svg aria-hidden="true"><use href="#i-search"/></svg></span>
+        <div>
+          <h3 class="h3">Заметность в точке выбора</h3>
+          <p>Вас видно в Google, Яндексе, на картах и в ответах ИИ — там, где клиент уже ищет услугу.</p>
         </div>
-      </figure>
-      <div class="benefit-stack">
-        <div class="card benefit">
-          <span class="ico"><svg aria-hidden="true"><use href="#i-search"/></svg></span>
-          <div><h3 class="h3">Узнаваемость</h3><p>Ваше название видят там, где клиент выбирает: в поиске, на картах и в ответах ИИ, ещё до того, как он готов купить.</p></div>
+      </div>
+      <div class="card benefit">
+        <span class="ico"><svg aria-hidden="true"><use href="#i-phone"/></svg></span>
+        <div>
+          <h3 class="h3">Дополнительные обращения</h3>
+          <p>Звонки, WhatsApp и заявки с сайта от людей, которые сами ищут вашу услугу.</p>
         </div>
-        <div class="card benefit">
-          <span class="ico"><svg aria-hidden="true"><use href="#i-phone"/></svg></span>
-          <div><h3 class="h3">Новые обращения</h3><p>Приходят люди, которые уже ищут вашу услугу. Они звонят, пишут в WhatsApp и оставляют заявки на сайте.</p></div>
-        </div>
-        <div class="card benefit">
-          <span class="ico"><svg aria-hidden="true"><use href="#i-chart"/></svg></span>
-          <div><h3 class="h3">Устойчивее между кампаниями</h3><p>Поиск, карты и ИИ работают рядом с рекламой и могут оставаться точками контакта, когда бюджет на паузе — без обещания полностью от неё отказаться.</p></div>
+      </div>
+      <div class="card benefit">
+        <span class="ico"><svg aria-hidden="true"><use href="#i-chart"/></svg></span>
+        <div>
+          <h3 class="h3">Устойчивее между кампаниями</h3>
+          <p>Поиск, карты и ИИ работают рядом с рекламой и могут оставаться точками контакта, когда бюджет на паузе.</p>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- 4. Что мы делаем -->
-<section class="section" id="chto-delaem" aria-labelledby="work-title">
-  <div class="wrap">
-    <div class="section-head center">
-      <h2 id="work-title" class="h2">Одна команда на все каналы, <br class="br-wide">где вас ищут</h2>
-      <p class="lead">Поиск, карты и ИИ опираются на одно и то же: понятный сайт, точные данные о компании и реальные отзывы. Поэтому мы ведём их вместе.</p>
-    </div>
-    <div class="work">
-      <div class="card work-item">
-        <h3 class="h3">Поиск Google и Яндекса</h3>
-        <p class="tag">То, что обычно называют SEO</p>
-        <p class="body">Страницы под реальные запросы клиентов вашей ниши и города, понятная структура, быстрая мобильная версия, заголовки и описания для поиска.</p>
-        <p class="result">Сайт находят по запросам, по которым ищут вашу услугу</p>
-      </div>
-      <div class="card work-item">
-        <h3 class="h3">Карты</h3>
-        <p class="tag">2ГИС, Яндекс Карты, Google Карты</p>
-        <p class="body">Создаём или дозаполняем карточки: услуги, цены, фото, режим работы. Следим, чтобы адрес и телефоны везде совпадали.</p>
-        <p class="result">Вас видно рядом с клиентом, с кнопками «позвонить» и «маршрут»</p>
-      </div>
-      <div class="card work-item">
-        <h3 class="h3">Рекомендации ИИ</h3>
-        <p class="tag">ChatGPT, Алиса, Gemini, Perplexity</p>
-        <p class="body">Публикуем ясные ответы на частые вопросы клиентов и проверяемые факты о компании. Добиваемся упоминаний на площадках, которым доверяет ИИ.</p>
-        <p class="result">ИИ проще назвать вас, когда клиент просит совета</p>
-      </div>
-      <div class="card work-item">
-        <h3 class="h3">Отзывы и репутация</h3>
-        <p class="tag">Без накруток</p>
-        <p class="body">Помогаем собирать реальные отзывы после покупки и отвечать на них. Приводим в порядок описание компании на сайтах-каталогах.</p>
-        <p class="result">Клиенту проще выбрать вас среди похожих</p>
-      </div>
-      <div class="card work-item">
-        <h3 class="h3">Заявки и отчёты</h3>
-        <p class="tag">Аналитика с первого месяца</p>
-        <p class="body">Настраиваем формы, WhatsApp, учёт звонков и счётчики. Каждый месяц - понятный отчёт: откуда пришли обращения и что изменилось.</p>
-        <p class="result">Видно, откуда приходят обращения</p>
-      </div>
-      <div class="card why-ai">
-        <h3 class="h3">На чём держится видимость</h3>
-        <p>Поиск, карты и ИИ опираются на понятный сайт, точные данные на картах, отзывы и упоминания на внешних площадках. Чем больше о вас проверяемых и согласованных сведений, тем проще клиенту вас найти и выбрать. С этим мы и работаем.</p>
-      </div>
-    </div>
+    <p class="benefit-disclaimer">Эффект зависит от спроса, конкуренции и качества продвижения. Это не гарантия заявок и не замена рекламы.</p>
   </div>
 </section>
 
 <!-- 5. Бесплатный разбор -->
-<section class="section" id="razbor" aria-labelledby="offer-title" style="padding-top:0">
-  <div class="wrap">
-    <div class="offer on-dark">
-      <div>
-        <h2 id="offer-title" class="h2">Покажем, как вас видят сегодня. Бесплатно</h2>
-        <p class="lead">Главный первый шаг: проверка видимости по 5–10 запросам вашей ниши в поиске, на картах и в ответах ИИ — без обязательств.</p>
-        <ul class="check-list">
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><div><b>Поиск.</b> <span>Видно ли вас по 5–10 типовым запросам ниши и города в Google и Яндексе.</span></div></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><div><b>Карты.</b> <span>Как заполнены карточки в 2ГИС, Яндекс и Google Картах рядом с конкурентами.</span></div></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><div><b>ИИ.</b> <span>Какие компании встречаются в ответах ChatGPT, Алисы и Gemini на вопросы ваших клиентов.</span></div></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><div><b>Сайт.</b> <span>Понятно ли, чем вы занимаетесь, сколько это стоит и как оставить заявку.</span></div></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><div><b>3 шага.</b> <span>Приоритетные действия на ближайшие 90 дней — по важности для вашей ситуации.</span></div></li>
-        </ul>
+<section class="section section-tint" id="razbor" aria-labelledby="offer-title">
+  <div class="wrap offer-split">
+    <div>
+      <p class="eyebrow">Главный первый шаг</p>
+      <h2 id="offer-title" class="h2">Покажем, как вас видят сегодня. Бесплатно</h2>
+      <p class="lead">Проверка видимости по 5–10 запросам вашей ниши в поиске, на картах и в ответах ИИ — без обязательств.</p>
+      <ol class="offer-steps">
+        <li><b>Поиск</b> — видно ли вас в Google и Яндексе по запросам ниши</li>
+        <li><b>Карты</b> — как заполнены карточки в 2ГИС, Яндекс и Google рядом с конкурентами</li>
+        <li><b>ИИ</b> — какие компании встречаются в ответах ChatGPT, Алисы и Gemini</li>
+        <li><b>3 шага</b> — приоритетные действия на ближайшие 90 дней</li>
+      </ol>
+      <a class="btn btn-main" href="#zayavka" data-cta="razbor">Получить бесплатный разбор</a>
+      <p class="offer-keep">Отчёт остаётся у вас — даже если дальше работать не будете</p>
+    </div>
+    <div class="report-mock" role="img" aria-label="Макет отчёта о видимости. Цифры условные">
+      <div class="report-top"><span>Разбор видимости</span><span class="report-tag">Пример</span></div>
+      <p class="report-co">Ваша компания</p>
+      <div class="report-bars" aria-hidden="true">
+        <div><span>Поиск</span><i style="--w:28%"></i><b>слабо</b></div>
+        <div><span>Карты</span><i style="--w:45%"></i><b>средне</b></div>
+        <div><span>Ответы ИИ</span><i class="warn" style="--w:12%"></i><b>мало данных</b></div>
+        <div><span>Отзывы</span><i style="--w:35%"></i><b>мало</b></div>
       </div>
-      <div class="offer-box">
-        <p class="price-free">0 ₸</p>
-        <p class="small">Готовим за 3 рабочих дня после заявки</p>
-        <ul class="offer-get">
-          <li>Короткий отчёт: где вас видно, а где нет</li>
-          <li>3 приоритетных действия на 90 дней</li>
-          <li>Созвон на 20–30 минут, чтобы всё объяснить</li>
-          <li>Ориентир по цене, если захотите работать с нами</li>
-        </ul>
-        <a class="btn btn-main btn-wide" href="#zayavka" data-cta="razbor">Проверить видимость моего бизнеса</a>
-        <p class="offer-note">Отчёт остаётся у вас — даже если дальше работать не будете</p>
-      </div>
+      <p class="report-note">Условный макет. В реальном разборе — ваши запросы и факты.</p>
     </div>
   </div>
 </section>
 
 <!-- 6. 90 дней -->
-<section class="section section-tint" aria-labelledby="plan-title">
+<section class="section section-tint" id="chto-delaem" aria-labelledby="plan-title">
   <div class="wrap">
     <div class="section-head center">
       <h2 id="plan-title" class="h2">За первые 90 дней создаём основу и измеряем первые изменения</h2>
@@ -419,25 +343,31 @@
     </div>
     <ol class="timeline">
       <li class="card">
-        <p class="month">Месяц 1</p>
+        <p class="month">Этап 1</p>
         <div class="progress" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
         <h3 class="h3">Анализ и основа</h3>
-        <p>Фиксируем точку отсчёта: что отвечают поиск и ИИ, как выглядят карты. Подключаем аналитику, правим сайт и заполняем карточки.</p>
+        <p>Фиксируем точку отсчёта: поиск, карты, ответы ИИ. Подключаем аналитику, правим сайт и заполняем карточки.</p>
       </li>
       <li class="card">
-        <p class="month">Месяц 2</p>
+        <p class="month">Этап 2</p>
         <div class="progress" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></div>
-        <h3 class="h3">Контент, отзывы, упоминания</h3>
-        <p>Страницы под запросы клиентов, ответы на частые вопросы, сбор реальных отзывов и выход на внешние площадки.</p>
+        <h3 class="h3">Сайт, контент, отзывы, упоминания</h3>
+        <p>Страницы под запросы клиентов, ответы на частые вопросы, реальные отзывы и выход на внешние площадки.</p>
       </li>
       <li class="card">
-        <p class="month">Месяц 3</p>
+        <p class="month">Этап 3</p>
         <div class="progress" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></div>
         <h3 class="h3">Замер и план дальше</h3>
         <p>Сравниваем с точкой отсчёта: поиск, карты, ответы ИИ, обращения. Показываем изменения и план на следующие месяцы.</p>
       </li>
     </ol>
-    <p class="timing-note"><b>Ориентир, а не гарантия.</b> Карточки и правки сайта — в первые 1–2 месяца. Заметные сдвиги в ответах ИИ чаще ждут через 2–4 месяца, более устойчивую картину — к шестому. Сроки зависят от ниши и конкурентов.</p>
+    <div class="channels-row">
+      <div class="channel-pill"><b>Поиск</b><span>Google и Яндекс</span></div>
+      <div class="channel-pill"><b>Карты</b><span>2ГИС, Яндекс, Google</span></div>
+      <div class="channel-pill"><b>ИИ</b><span>ChatGPT, Алиса, Gemini</span></div>
+      <div class="channel-pill"><b>Отзывы</b><span>без накруток</span></div>
+    </div>
+    <p class="timing-note"><b>Ориентир, а не гарантия.</b> Карточки и правки сайта — в первые 1–2 месяца. Заметные сдвиги чаще ждут через 2–4 месяца, более устойчивую картину — к шестому. Сроки зависят от ниши и конкурентов.</p>
   </div>
 </section>
 
@@ -446,7 +376,7 @@
   <div class="wrap">
     <div class="section-head center">
       <h2 id="price-title" class="h2">Понятные цены от 180 000 ₸ в месяц</h2>
-      <p class="lead">Цена зависит от пакета и от конкуренции в вашей сфере: чем она выше, тем больше работы нужно, чтобы вас заметили.</p>
+      <p class="lead">Цена зависит от пакета и конкуренции в вашей сфере. Точную сумму фиксируем в договоре после бесплатного разбора.</p>
     </div>
 
     <fieldset class="niche-switch">
@@ -475,7 +405,7 @@
       </article>
       <article class="card plan plan-featured on-dark">
         <div class="plan-top"><h3 class="h3">Рост</h3><span class="plan-badge">Рекомендуем</span></div>
-        <p class="plan-for">Клиники, сервисы, компании с несколькими направлениями</p>
+        <p class="plan-for">Клиники, сервисы, несколько направлений</p>
         <p class="plan-price" data-price data-a="380000" data-b="320000" data-c="280000">320 000 ₸</p>
         <p class="plan-period">в месяц</p>
         <ul>
@@ -505,70 +435,32 @@
       </article>
     </div>
 
-    <div class="extras">
+    <div class="extras extras-compact">
       <div class="extra">
         <h3 class="h3">Аудит видимости</h3>
         <p class="extra-price">120 000 ₸ разово</p>
-        <p>Полное исследование за 1-2 недели: спрос, конкуренты, карты, 20 вопросов в 4 ИИ, план работ. При договоре засчитываем в первый месяц.</p>
-      </div>
-      <div class="extra">
-        <h3 class="h3">Только рекомендации ИИ</h3>
-        <p class="extra-price"><span data-price data-a="220000" data-b="200000" data-c="180000">200 000 ₸</span> в месяц</p>
-        <p>Если поиском уже занимается другой подрядчик, а вам нужны ответы ИИ и карты.</p>
+        <p>Полное исследование за 1–2 недели. При договоре засчитываем в первый месяц.</p>
       </div>
       <div class="extra">
         <h3 class="h3">Нужен новый сайт?</h3>
         <p class="extra-price">от 100 000 ₸</p>
-        <p>TMK Techno Horizon разрабатывает сайты и сразу делает их готовыми для поиска и ИИ.</p>
+        <p>Сделаем сайт сразу готовым для поиска, карт и ИИ.</p>
       </div>
     </div>
 
     <div class="terms">
       <p>Договор от 6 месяцев, оплата помесячно</p>
-      <p>При оплате за год - скидка 10%</p>
-      <p>Казахская версия для «Старта» и «Роста» - плюс 30%</p>
-      <p>Интернет-магазины и большие каталоги - по смете, от 450 000 ₸</p>
-      <p>Точную цену называем после бесплатного разбора и фиксируем в договоре</p>
-      <p>Скрытых платежей нет. Платные размещения (например, платный каталог) - только с вашего согласия и по цене, названной заранее</p>
-      <p>Условия возврата - в <a href="/vozvrat">политике возврата средств</a></p>
+      <p>При оплате за год — скидка 10%</p>
+      <p>Казахская версия для «Старта» и «Роста» — плюс 30%</p>
+      <p>Интернет-магазины и большие каталоги — по смете, от 450 000 ₸</p>
+      <p>Скрытых платежей нет. Платные размещения — только с вашего согласия</p>
+      <p>Условия возврата — в <a href="/vozvrat">политике возврата средств</a></p>
     </div>
   </div>
 </section>
 
-<!-- 8. Как мы работаем -->
-<section class="section section-tint" aria-labelledby="honest-title">
-  <div class="wrap">
-    <div class="section-head center">
-      <h2 id="honest-title" class="h2">Честно о том, как мы работаем</h2>
-    </div>
-    <div class="honest">
-      <div class="card honest-item">
-        <span class="ico"><svg aria-hidden="true"><use href="#i-shield"/></svg></span>
-        <div><h3 class="h3">Не обещаем «первое место»</h3><p>Ответы ИИ меняются от запроса к запросу, и гарантировать их не может никто. Мы обещаем работу, от которой зависит результат, и честные замеры каждый месяц.</p></div>
-      </div>
-      <div class="card honest-item">
-        <span class="ico"><svg aria-hidden="true"><use href="#i-check"/></svg></span>
-        <div><h3 class="h3">Без накруток</h3><p>Никаких купленных отзывов и выдуманных фактов. Только то, что можно проверить.</p></div>
-      </div>
-      <div class="card honest-item">
-        <span class="ico"><svg aria-hidden="true"><use href="#i-key"/></svg></span>
-        <div><h3 class="h3">Всё остаётся у вас</h3><p>Доступы к сайту, карточкам и аналитике оформляем на вашу компанию. Если решите остановиться, всё сделанное останется у вас.</p></div>
-      </div>
-      <div class="card honest-item">
-        <span class="ico"><svg aria-hidden="true"><use href="#i-chart"/></svg></span>
-        <div><h3 class="h3">Отчёт простыми словами</h3><p>Каждый месяц: сколько было обращений и откуда, что изменилось в поиске, на картах и в ответах ИИ, что делаем дальше.</p></div>
-      </div>
-    </div>
-    <div class="trust">
-      <p><b>Мы сами разрабатываем сайты и IT-системы.</b> Поэтому правки на сайте делаем своими силами, без посредников. Среди проектов TMK Techno Horizon:</p>
-      <div class="trust-names"><span>Narxoz Business School</span><span>BS Holding</span><span>Extra Space</span></div>
-      <a class="trust-link" href="https://tmk-technohorizon.kz/" target="_blank" rel="noopener">Все проекты на сайте TMK Techno Horizon</a>
-    </div>
-  </div>
-</section>
-
-<!-- 9. Вопросы -->
-<section class="section" id="voprosy" aria-labelledby="faq-title">
+<!-- 8. FAQ -->
+<section class="section section-tint" id="voprosy" aria-labelledby="faq-title">
   <div class="wrap">
     <div class="section-head center">
       <h2 id="faq-title" class="h2">Частые вопросы</h2>
@@ -578,19 +470,21 @@
       <details><summary>Это заменит рекламу?</summary><div class="answer"><p>Нет. Реклама даёт заявки быстро, пока вы платите. Поиск, карты и ИИ — дополнительный канал рядом с рекламой; он может оставаться полезным, когда кампания на паузе. Эффект зависит от спроса, конкуренции и качества продвижения.</p></div></details>
       <details><summary>Когда будут первые изменения?</summary><div class="answer"><p>За первые 90 дней создаём основу и измеряем первые изменения. Более устойчивую картину обычно ждут к шестому месяцу — это ориентир, а не гарантия. Поэтому договор от 6 месяцев.</p></div></details>
       <details><summary>Сколько стоит?</summary><div class="answer"><p>От 180 000 ₸ в месяц. Точный объём и пакет называем после бесплатного разбора: цена зависит от конкуренции в нише и состава работ.</p></div></details>
-      <details><summary>Нужен ли новый сайт?</summary><div class="answer"><p>Чаще всего нет: текущий сайт можно доработать. Если сайта нет или он устарел, TMK Techno Horizon сделает новый сразу готовым для поиска и ИИ. Что выгоднее, покажет разбор.</p></div></details>
       <details><summary>Бесплатный разбор — в чём подвох?</summary><div class="answer"><p>Подвоха нет. Это способ показать, как вас видят клиенты сегодня. Отчёт остаётся у вас, даже если дальше работать не будете.</p></div></details>
     </div>
-    <p class="faq-more">Не нашли ответ? Напишите в <a href="https://wa.me/77479071622" target="_blank" rel="noopener" data-loc="faq">WhatsApp</a> - ответим в рабочее время.</p>
+    <div class="trust trust-compact">
+      <p><b>Без накруток.</b> Доступы остаются у вас. Отчёт каждый месяц простыми словами. Среди проектов TMK Techno Horizon: Narxoz Business School, BS Holding, Extra Space.</p>
+      <a class="trust-link" href="https://tmk-technohorizon.kz/" target="_blank" rel="noopener">Все проекты на сайте TMK Techno Horizon</a>
+    </div>
   </div>
 </section>
 
-<!-- 10. Заявка -->
+<!-- 9. Финальная заявка -->
 <section class="section lead-section on-dark" id="zayavka" aria-labelledby="form-title">
   <div class="wrap lead-grid">
     <div>
       <h2 id="form-title" class="h2">Проверьте, находят ли ваш бизнес</h2>
-      <p class="lead">Оставьте заявку — за 3 рабочих дня подготовим бесплатный разбор по поиску, картам и ИИ и 3 приоритетных шага. Напишем в WhatsApp или перезвоним в рабочее время.</p>
+      <p class="lead">Оставьте заявку — за 3 рабочих дня подготовим бесплатный разбор по поиску, картам и ИИ и 3 приоритетных шага.</p>
       <div class="lead-contacts">
         <p class="small" style="margin:0">Не любите формы? Напишите или позвоните:</p>
         <a class="btn btn-wa" href="https://wa.me/77479071622?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80%3A%20%D0%BD%D0%B0%D1%85%D0%BE%D0%B4%D1%8F%D1%82%20%D0%BB%D0%B8%20%D0%BC%D0%BE%D0%B9%20%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%20%D0%B2%20%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%B5%2C%20%D0%BD%D0%B0%20%D0%BA%D0%B0%D1%80%D1%82%D0%B0%D1%85%20%D0%B8%20%D0%B2%20%D0%BE%D1%82%D0%B2%D0%B5%D1%82%D0%B0%D1%85%20%D0%98%D0%98." target="_blank" rel="noopener" data-loc="form"><svg aria-hidden="true"><use href="#i-wa"/></svg>Написать в WhatsApp</a>
@@ -615,11 +509,7 @@
             <p class="error-text" id="e-phone">Введите номер полностью: +7 и 10 цифр</p>
           </div>
           <div class="field full">
-            <label for="f-link">Сайт, 2ГИС или Instagram <span class="opt">- если есть</span></label>
-            <input id="f-link" name="link" type="text" maxlength="300" placeholder="Ссылка на сайт или профиль" autocomplete="url">
-          </div>
-          <div class="field">
-            <label for="f-business">Сфера бизнеса <span class="opt">- по желанию</span></label>
+            <label for="f-business">Сфера бизнеса</label>
             <select id="f-business" name="business_type">
               <option value="">Выберите</option>
               <option>Медицина и стоматология</option>
@@ -637,33 +527,13 @@
               <option>Другое</option>
             </select>
           </div>
-          <div class="field">
-            <label for="f-city">Город <span class="opt">- по желанию</span></label>
-            <select id="f-city" name="city">
-              <option value="">Выберите</option>
-              <option>Алматы</option>
-              <option>Астана</option>
-              <option>Шымкент</option>
-              <option>Караганда</option>
-              <option>Актобе</option>
-              <option>Атырау</option>
-              <option>Другой город</option>
-            </select>
-          </div>
           <div class="field full">
-            <span class="label" id="contact-label">Как удобнее связаться</span>
-            <div class="radio-row" role="radiogroup" aria-labelledby="contact-label">
-              <label><input type="radio" name="contact_method" value="WhatsApp" checked>WhatsApp</label>
-              <label><input type="radio" name="contact_method" value="Звонок">Звонок</label>
-              <label><input type="radio" name="contact_method" value="Telegram">Telegram</label>
-            </div>
+            <label for="f-link">Сайт, 2ГИС или Instagram <span class="opt">— если есть</span></label>
+            <input id="f-link" name="link" type="text" maxlength="300" placeholder="Ссылка на сайт или профиль" autocomplete="url">
           </div>
           <div class="field full" data-field="consent">
-            <label class="consent"><input id="f-consent" type="checkbox" name="consent" value="yes" required><span>Мне есть 18 лет, и я согласен(на) на обработку персональных данных по <a href="/privacy" target="_blank">политике конфиденциальности</a>. Обязательно</span></label>
+            <label class="consent"><input id="f-consent" type="checkbox" name="consent" value="yes" required><span>Мне есть 18 лет, и я согласен(на) на обработку персональных данных по <a href="/privacy" target="_blank">политике конфиденциальности</a></span></label>
             <p class="error-text" id="e-consent">Отметьте флажок: без согласия мы не можем обработать заявку</p>
-          </div>
-          <div class="field full">
-            <label class="consent"><input id="f-marketing" type="checkbox" name="marketing" value="yes"><span>Присылать полезные материалы и новости о продвижении. По желанию, отписаться можно в любой момент</span></label>
           </div>
         </div>
 
@@ -671,6 +541,9 @@
           <label for="f-company">Не заполняйте это поле</label>
           <input id="f-company" name="company" type="text" tabindex="-1" autocomplete="off">
         </div>
+        <input type="hidden" name="city" value="">
+        <input type="hidden" name="contact_method" value="WhatsApp">
+        <input type="hidden" name="marketing" value="">
         <input type="hidden" name="package" value="">
         <input type="hidden" name="utm_source" value="">
         <input type="hidden" name="utm_medium" value="">
@@ -685,7 +558,7 @@
           <button class="btn btn-main" type="submit">Проверить видимость моего бизнеса</button>
         </div>
         <p class="form-status" role="alert" aria-live="assertive"></p>
-        <p class="form-legal">Используем данные только для ответа на заявку. Нажимая кнопку, вы отправляете заявку - это ни к чему не обязывает. <a href="/terms">Условия использования</a></p>
+        <p class="form-legal">Город и удобный канал связи уточним при контакте. Отправка ни к чему не обязывает. <a href="/terms">Условия</a></p>
       </form>
     </div>
   </div>
@@ -719,7 +592,7 @@
     </nav>
     <div class="footer-bottom">
       <span>© 2026 TMK Techno Horizon. Сайт для лиц старше 18 лет.</span>
-      <span>Цены на сайте - ориентир, не публичная оферта</span>
+      <span>Цены на сайте — ориентир, не публичная оферта</span>
     </div>
   </div>
 </footer>
